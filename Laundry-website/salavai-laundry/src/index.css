@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth scroll behavior for page navigation */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optional: Add scroll padding to account for fixed header */
+html {
+  scroll-padding-top: 80px;
+}
