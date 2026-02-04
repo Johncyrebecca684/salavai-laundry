@@ -132,10 +132,15 @@ const translations = {
       title: 'Who Can Join?',
       subtitle: 'No prior experience required',
       category1: 'Traditional dhobi families',
+      desc1: 'Modernize your traditional skills with professional equipment. Build a sustainable business for your family\'s future.',
       category2: 'Women / Homemakers',
+      desc2: 'Achieve financial independence from home. Flexible hours that fit your family responsibilities.',
       category3: 'Differently-abled individuals',
+      desc3: 'Equal opportunity for meaningful work. We provide specialized training and accessible equipment.',
       category4: 'Unemployed youth',
-      category5: 'Aspiring small business owners'
+      desc4: 'Start your entrepreneurial journey with complete support. Learn valuable skills and build your own business.',
+      category5: 'Aspiring small business owners',
+      desc5: 'Low investment, high returns opportunity. Complete business setup with ongoing mentorship and support.'
     },
     // Franchise Section
     franchise: {
@@ -289,10 +294,15 @@ const translations = {
       title: 'யார் சேரலாம்?',
       subtitle: 'முன் அனுபவம் தேவையில்லை',
       category1: 'வண்ணான் குடும்பங்கள்',
+      desc1: 'உங்கள் பாரம்பரிய திறமையை நவீன தொழில்நுட்பத்துடன் மேம்படுத்துங்கள். குடும்ப எதிர்காலத்திற்கு நிலையான வணிகத்தை உருவாக்குங்கள்.',
       category2: 'பெண்கள் / இல்லத்தரசிகள்',
+      desc2: 'வீட்டிலிருந்தே நிதி சுதந்திரம் பெறுங்கள். குடும்ப பொறுப்புகளுக்கு ஏற்ற நெகிழ்வான நேர அட்டவணை.',
       category3: 'மாற்றுத் திறனாளிகள்',
+      desc3: 'அர்த்தமுள்ள வேலைக்கான சம வாய்ப்பு. சிறப்பு பயிற்சி மற்றும் அணுகக்கூடிய உபகரணங்களை வழங்குகிறோம்.',
       category4: 'வேலை இல்லாத இளைஞர்கள்',
-      category5: 'சிறு தொழில் செய்ய விரும்புபவர்கள்'
+      desc4: 'முழு ஆதரவுடன் உங்கள் தொழில் பயணத்தை தொடங்குங்கள். மதிப்புமிக்க திறன்களை கற்று சொந்த வணிகத்தை உருவாக்குங்கள்.',
+      category5: 'சிறு தொழில் செய்ய விரும்புபவர்கள்',
+      desc5: 'குறைந்த முதலீடு, அதிக வருமானம். தொடர் வழிகாட்டுதலுடன் முழுமையான வணிக அமைப்பு.'
     },
     // Franchise Section
     franchise: {
@@ -427,6 +437,58 @@ const GlobalStyles = () => (
     h1, h2, h3, h4, h5, h6, .font-heading {
       font-family: var(--font-heading) !important;
       color: var(--color-dark-blue) !important;
+    }
+
+    /* Add custom decorative underline to all section headings */
+    h1.font-heading, h2.font-heading, h3.font-heading {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 12px;
+    }
+
+    /* Exclude logo from getting underline */
+    nav h1.font-heading,
+    nav .font-heading {
+      padding-bottom: 0;
+    }
+
+    nav h1.font-heading::after,
+    nav h1.font-heading::before,
+    nav .font-heading::after,
+    nav .font-heading::before {
+      display: none;
+    }
+
+    /* Exclude equipment section headings from getting underline */
+    #equipment h3.font-heading {
+      padding-bottom: 0;
+    }
+
+    #equipment h3.font-heading::after,
+    #equipment h3.font-heading::before {
+      display: none;
+    }
+
+    h1.font-heading::after, h2.font-heading::after, h3.font-heading::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: linear-gradient(to right, currentColor 0%, currentColor 45%, transparent 45%, transparent 55%, currentColor 55%, currentColor 100%);
+    }
+
+    /* Laundry droplet symbol in the middle of underline */
+    h1.font-heading::before, h2.font-heading::before, h3.font-heading::before {
+      content: '💧';
+      position: absolute;
+      left: 50%;
+      bottom: -8px;
+      transform: translateX(-50%);
+      font-size: 16px;
+      padding: 0 8px;
+      z-index: 1;
     }
 
     /* --- Scroll Progress Bar --- */
@@ -1056,6 +1118,67 @@ const FloatingBubbles = () => {
 };
 
 /**
+ * Floating Laundry Icons
+ */
+const FloatingLaundryIcons = () => {
+  const [icons, setIcons] = useState([]);
+  
+  useEffect(() => {
+    const iconTypes = [Droplets, Waves, Shirt, Sparkles];
+    const newIcons = Array.from({ length: 20 }).map((_, i) => ({
+      id: i,
+      Icon: iconTypes[Math.floor(Math.random() * iconTypes.length)],
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      size: Math.random() * 20 + 25,
+      duration: `${Math.random() * 15 + 20}s`,
+      delay: `${Math.random() * 10}s`,
+      rotation: Math.random() * 360
+    }));
+    setIcons(newIcons);
+  }, []);
+
+  return (
+    <>
+      <style>{`
+        @keyframes float-wave {
+          0%, 100% {
+            transform: translateY(0) translateX(0) rotate(0deg);
+          }
+          25% {
+            transform: translateY(-30px) translateX(10px) rotate(10deg);
+          }
+          50% {
+            transform: translateY(-60px) translateX(-10px) rotate(-10deg);
+          }
+          75% {
+            transform: translateY(-30px) translateX(10px) rotate(10deg);
+          }
+        }
+      `}</style>
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        {icons.map(item => (
+          <item.Icon
+            key={item.id}
+            size={item.size}
+            className="absolute text-[#0077b6]"
+            style={{
+              left: item.left,
+              top: item.top,
+              animation: `float-wave ${item.duration} ease-in-out infinite`,
+              animationDelay: item.delay,
+              transform: `rotate(${item.rotation}deg)`,
+              opacity: 0.3
+            }}
+            strokeWidth={1}
+          />
+        ))}
+      </div>
+    </>
+  );
+};
+
+/**
  * Scroll Reveal Component
  */
 const RevealOnScroll = ({ children, className = "", delay = 0 }) => {
@@ -1419,195 +1542,9 @@ const Hero = () => {
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-32 pointer-events-none">
         <RevealOnScroll>
-          <style>{`
-            @keyframes soap-foam {
-              0% { 
-                opacity: 0;
-                transform: translateY(20px) scale(0.5);
-              }
-              50% { 
-                opacity: 0.7;
-                transform: translateY(-10px) scale(1);
-              }
-              100% { 
-                opacity: 0;
-                transform: translateY(-40px) scale(1.5);
-              }
-            }
-            @keyframes drum-rotate {
-              0% { 
-                transform: rotate(0deg);
-                opacity: 0.1;
-              }
-              50% { 
-                opacity: 0.15;
-              }
-              100% { 
-                transform: rotate(360deg);
-                opacity: 0.1;
-              }
-            }
-            @keyframes sparkle-pop {
-              0%, 100% { 
-                transform: scale(0) rotate(0deg);
-                opacity: 0;
-              }
-              50% { 
-                transform: scale(1) rotate(180deg);
-                opacity: 1;
-              }
-            }
-            .premium-badge {
-              position: relative;
-              overflow: hidden;
-            }
-            /* Spinning drum pattern in background */
-            .premium-badge::before {
-              content: '';
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              width: 150%;
-              height: 150%;
-              margin-left: -75%;
-              margin-top: -75%;
-              border: 3px dashed rgba(0, 119, 182, 0.15);
-              border-radius: 50%;
-              animation: drum-rotate 8s linear infinite;
-            }
-            /* Soap bubbles */
-            .soap-bubble-anim {
-              position: absolute;
-              width: 10px;
-              height: 10px;
-              background: radial-gradient(circle at 30% 30%, 
-                rgba(255, 255, 255, 0.8) 0%,
-                rgba(0, 180, 216, 0.6) 40%,
-                rgba(0, 119, 182, 0.4) 100%);
-              border-radius: 50%;
-              box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.5);
-              animation: soap-foam 2s ease-out infinite;
-            }
-            /* Sparkle effects */
-            .sparkle-anim {
-              position: absolute;
-              width: 8px;
-              height: 8px;
-              background: linear-gradient(45deg, 
-                transparent 40%, 
-                rgba(0, 180, 216, 0.8) 50%, 
-                transparent 60%);
-              animation: sparkle-pop 2s ease-in-out infinite;
-            }
-
-            /* Premium Badge Button - btn-23 from Uiverse.io */
-            .btn-23,
-            .btn-23 *,
-            .btn-23 :after,
-            .btn-23 :before,
-            .btn-23:after,
-            .btn-23:before {
-              border: 0 solid;
-              box-sizing: border-box;
-            }
-
-            .btn-23 {
-              -webkit-tap-highlight-color: transparent;
-              -webkit-appearance: button;
-              background-color: #A50034;
-              background-image: none;
-              color: #fff;
-              cursor: pointer;
-              font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-                Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
-                Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-              font-size: 100%;
-              font-weight: 900;
-              line-height: 1.5;
-              margin: 0;
-              -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
-              padding: 0;
-              text-transform: uppercase;
-            }
-
-            .btn-23:disabled {
-              cursor: default;
-            }
-
-            .btn-23:-moz-focusring {
-              outline: auto;
-            }
-
-            .btn-23 svg {
-              display: block;
-              vertical-align: middle;
-            }
-
-            .btn-23 [hidden] {
-              display: none;
-            }
-
-            .btn-23 {
-              border-radius: 99rem;
-              border-width: 2px;
-              overflow: visible;
-              padding: 0.8rem 3rem;
-              position: relative;
-            }
-
-            .btn-23 span {
-              display: grid;
-              inset: 0;
-              place-items: center;
-              position: absolute;
-              transition: opacity 0.2s ease;
-            }
-
-            .btn-23 .marquee {
-              --spacing: 10em;
-              --start: 0em;
-              --end: -10em;
-              -webkit-animation: marquee 2s linear infinite;
-              animation: marquee 2s linear infinite;
-              -webkit-animation-play-state: paused;
-              animation-play-state: paused;
-              opacity: 0;
-              position: relative;
-              white-space: nowrap;
-            }
-
-            .btn-23:hover .marquee {
-              -webkit-animation-play-state: running;
-              animation-play-state: running;
-              opacity: 1;
-            }
-
-            .btn-23:hover .text {
-              opacity: 0;
-            }
-
-            @-webkit-keyframes marquee {
-              0% {
-                transform: translateX(var(--start));
-              }
-              to {
-                transform: translateX(var(--end));
-              }
-            }
-
-            @keyframes marquee {
-              0% {
-                transform: translateX(var(--start));
-              }
-              to {
-                transform: translateX(var(--end));
-              }
-            }
-          `}</style>
-          <button className="btn-23 pointer-events-auto text-xl md:text-2xl mb-10">
-            <span className="text">{t.hero.badge}</span>
-            <span className="marquee" aria-hidden="true">{t.hero.badge}</span>
-          </button>
+          <p className="text-2xl md:text-3xl text-slate-100 mb-8 font-medium drop-shadow-lg" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+            {t.hero.badge}
+          </p>
         </RevealOnScroll>
 
         <RevealOnScroll delay={200}>
@@ -1787,7 +1724,7 @@ const About = () => {
                 {t.about.title} <span className="text-[#003366]">{t.about.tradition}</span> {t.about.meets} <span className="text-[#003366]">{t.about.innovation}</span>.
               </h3>
 
-              <div className="space-y-6 text-lg text-[#A50034] leading-relaxed" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+              <div className="space-y-6 text-lg text-[#003366] leading-relaxed" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                 <p>
                   {t.about.p1}
                 </p>
@@ -1854,34 +1791,41 @@ const Vision = () => {
 const WhySalavai = () => {
   const { t } = useLanguage();
   const reasons = [
-    { text: t.whySalavai.reason1 },
-    { text: t.whySalavai.reason2 },
-    { text: t.whySalavai.reason3 },
-    { text: t.whySalavai.reason4 },
-    { text: t.whySalavai.reason5 },
-    { text: t.whySalavai.reason6 }
+    { text: t.whySalavai.reason1, icon: Sparkles },
+    { text: t.whySalavai.reason2, icon: DollarSign },
+    { text: t.whySalavai.reason3, icon: CheckCircle },
+    { text: t.whySalavai.reason4, icon: Wrench },
+    { text: t.whySalavai.reason5, icon: Waves },
+    { text: t.whySalavai.reason6, icon: Shirt }
   ];
 
   return (
-    <section id="why-salavai" className="py-20 bg-white relative overflow-hidden z-10">
+    <section id="why-salavai" className="py-20 relative overflow-hidden z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid md:grid-cols-2 gap-16 items-stretch">
           {/* Left Side - Heading and Points */}
           <RevealOnScroll>
-            <div className="flex flex-col h-full">
-              <h1 className="text-4xl md:text-6xl font-bold font-heading text-[#a50034] leading-tight whitespace-nowrap mb-8">
+            <div className="flex flex-col h-full relative z-20">
+              <h1 className="text-4xl md:text-6xl font-bold font-heading text-[#a50034] leading-tight mb-8" style={{ position: 'relative', zIndex: 20 }}>
                 {t.whySalavai.title}
               </h1>
               
-              {/* Alert Cards */}
-              <div className="space-y-2 flex-1 flex flex-col justify-between">
+              {/* Icon-based List */}
+              <div className="space-y-2 flex-1">
                 {reasons.map((item, i) => (
                   <div
                     key={i}
-                    role="alert"
-                    className="bg-red-100 border-red-500 text-red-900 hover:bg-red-200 border-l-4 p-5 rounded-lg flex items-center transition duration-300 ease-in-out transform hover:scale-105 min-h-[70px]"
+                    className="flex items-center gap-6 py-5 border-b border-gray-200 hover:bg-red-50/50 transition-all duration-300 px-4 rounded-lg group"
                   >
-                    <p className="text-base font-semibold" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                    <div className="w-12 h-12 bg-white flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+                      {i === 0 && <item.icon size={32} strokeWidth={2} className="text-[#a50034]" fill="#a50034" />}
+                      {i === 1 && <item.icon size={32} strokeWidth={3} className="text-[#a50034]" />}
+                      {i === 2 && <item.icon size={32} strokeWidth={2} className="text-white" fill="#a50034" />}
+                      {i === 3 && <item.icon size={32} strokeWidth={2} className="text-[#a50034]" fill="#a50034" />}
+                      {i === 4 && <item.icon size={32} strokeWidth={3} className="text-[#a50034]" />}
+                      {i === 5 && <item.icon size={32} strokeWidth={2} className="text-[#a50034]" fill="#a50034" />}
+                    </div>
+                    <p className="text-gray-800 font-semibold text-lg flex-1" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                       {item.text}
                     </p>
                   </div>
@@ -1892,7 +1836,7 @@ const WhySalavai = () => {
 
           {/* Right Side - Image */}
           <RevealOnScroll delay={200}>
-            <div className="rounded-2xl overflow-hidden shadow-xl max-w-md mx-auto h-full">
+            <div className="rounded-full overflow-hidden shadow-xl max-w-md mx-auto aspect-square">
               <img 
                 src="/still-life-say-no-fast-fashion.jpg" 
                 alt="Why Salavai Laundry" 
@@ -1951,24 +1895,24 @@ const Equipment = () => {
             <div className="grid md:grid-cols-2 gap-3">
 
               {/* Product 1 - Large Featured */}
-              <div className="equipment-item md:col-span-2 bg-gradient-to-br from-slate-50 to-slate-100 rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500">
+              <div className="equipment-item md:col-span-2 bg-gradient-to-br from-red-700 to-red-900 rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500">
                 <div className="p-12 md:p-16 flex flex-col md:flex-row items-center gap-8">
                   <div className="flex-1 space-y-4">
-                    <h3 className="text-4xl md:text-5xl font-bold text-[#003366] font-heading">{t.equipment.washer.title}</h3>
-                    <p className="text-lg text-slate-600 leading-relaxed">
+                    <h3 className="text-4xl md:text-5xl font-bold font-heading" style={{ color: '#FFB3D9' }}>{t.equipment.washer.title}</h3>
+                    <p className="text-lg text-white/90 leading-relaxed">
                       {t.equipment.washer.desc}
                     </p>
                     <div className="flex flex-wrap gap-4 pt-4">
-                      <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                        <Monitor size={18} className="text-sky-600" />
+                      <div className="flex items-center gap-2 text-sm font-semibold text-white/90">
+                        <Monitor size={18} className="text-white" />
                         <span>{t.equipment.washer.smart}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                        <Droplets size={18} className="text-sky-600" />
+                      <div className="flex items-center gap-2 text-sm font-semibold text-white/90">
+                        <Droplets size={18} className="text-white" />
                         <span>{t.equipment.washer.water}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                        <DollarSign size={18} className="text-sky-600" />
+                      <div className="flex items-center gap-2 text-sm font-semibold text-white/90">
+                        <DollarSign size={18} className="text-white" />
                         <span>{t.equipment.washer.coin}</span>
                       </div>
                     </div>
@@ -1984,7 +1928,7 @@ const Equipment = () => {
               </div>
 
               {/* Product 2 */}
-              <div className="equipment-item bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500">
+              <div className="equipment-item bg-gradient-to-br from-red-700 to-red-900 rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500">
                 <div className="p-8 md:p-12 text-center">
                   <div className="mb-6">
                     <img
@@ -1993,11 +1937,11 @@ const Equipment = () => {
                       className="w-full max-w-sm mx-auto h-auto transform group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <h3 className="text-3xl md:text-4xl font-bold text-[#003366] font-heading mb-3">{t.equipment.dryer10.title}</h3>
-                  <p className="text-slate-600 mb-4">
+                  <h3 className="text-3xl md:text-4xl font-bold text-white font-heading mb-3">{t.equipment.dryer10.title}</h3>
+                  <p className="text-white/90 mb-4">
                     {t.equipment.dryer10.desc}
                   </p>
-                  <div className="inline-flex items-center gap-2 text-sm font-semibold text-purple-600">
+                  <div className="inline-flex items-center gap-2 text-sm font-semibold text-white">
                     <Star size={16} />
                     <span>{t.equipment.dryer10.capacity}</span>
                   </div>
@@ -2005,7 +1949,7 @@ const Equipment = () => {
               </div>
 
               {/* Product 3 */}
-              <div className="equipment-item bg-gradient-to-br from-orange-50 to-red-50 rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500">
+              <div className="equipment-item bg-gradient-to-br from-red-700 to-red-900 rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500">
                 <div className="p-8 md:p-12 text-center">
                   <div className="mb-6">
                     <img
@@ -2014,11 +1958,11 @@ const Equipment = () => {
                       className="w-full max-w-sm mx-auto h-auto transform group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <h3 className="text-3xl md:text-4xl font-bold text-[#003366] font-heading mb-3">{t.equipment.titan.title}</h3>
-                  <p className="text-slate-600 mb-4">
+                  <h3 className="text-3xl md:text-4xl font-bold text-white font-heading mb-3">{t.equipment.titan.title}</h3>
+                  <p className="text-white/90 mb-4">
                     {t.equipment.titan.desc}
                   </p>
-                  <div className="inline-flex items-center gap-2 text-sm font-semibold text-orange-600">
+                  <div className="inline-flex items-center gap-2 text-sm font-semibold text-white">
                     <Zap size={16} />
                     <span>{t.equipment.titan.capacity}</span>
                   </div>
@@ -2026,24 +1970,24 @@ const Equipment = () => {
               </div>
 
               {/* Product 4 */}
-              <div className="equipment-item md:col-span-2 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500">
+              <div className="equipment-item md:col-span-2 bg-gradient-to-br from-red-700 to-red-900 rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500">
                 <div className="p-12 md:p-16 flex flex-col md:flex-row-reverse items-center gap-8">
                   <div className="flex-1 space-y-4">
-                    <h3 className="text-4xl md:text-5xl font-bold text-[#003366] font-heading">{t.equipment.gas.title}</h3>
-                    <p className="text-lg text-slate-600 leading-relaxed">
+                    <h3 className="text-4xl md:text-5xl font-bold text-white font-heading">{t.equipment.gas.title}</h3>
+                    <p className="text-lg text-white/90 leading-relaxed">
                       {t.equipment.gas.desc}
                     </p>
                     <div className="flex flex-wrap gap-4 pt-4">
-                      <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                        <DollarSign size={18} className="text-cyan-600" />
+                      <div className="flex items-center gap-2 text-sm font-semibold text-white/90">
+                        <DollarSign size={18} className="text-white" />
                         <span>{t.equipment.gas.cost}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                        <CheckCircle size={18} className="text-cyan-600" />
+                      <div className="flex items-center gap-2 text-sm font-semibold text-white/90">
+                        <CheckCircle size={18} className="text-white" />
                         <span>{t.equipment.gas.reliable}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                        <Wrench size={18} className="text-cyan-600" />
+                      <div className="flex items-center gap-2 text-sm font-semibold text-white/90">
+                        <Wrench size={18} className="text-white" />
                         <span>{t.equipment.gas.maintenance}</span>
                       </div>
                     </div>
@@ -2072,31 +2016,38 @@ const Training = () => {
   const trainingModules = [
     {
       text: t.training.module1,
-      icon: Wrench
+      icon: Wrench,
+      iconProps: { strokeWidth: 2, fill: '#003366' }
     },
     {
       text: t.training.module2,
-      icon: Droplets
+      icon: Droplets,
+      iconProps: { strokeWidth: 2, fill: '#003366' }
     },
     {
       text: t.training.module3,
-      icon: Monitor
+      icon: Monitor,
+      iconProps: { strokeWidth: 2, fill: '#003366' }
     },
     {
       text: t.training.module4,
-      icon: CheckCircle
+      icon: CheckCircle,
+      iconProps: { strokeWidth: 3, className: 'text-white', fill: '#003366', size: 40 }
     },
     {
       text: t.training.module5,
-      icon: Star
+      icon: Star,
+      iconProps: { strokeWidth: 2, fill: '#003366' }
     },
     {
       text: t.training.module6,
-      icon: Star
+      icon: Sparkles,
+      iconProps: { strokeWidth: 2, fill: '#003366' }
     },
     {
       text: t.training.module7,
-      icon: DollarSign
+      icon: DollarSign,
+      iconProps: { strokeWidth: 3 }
     }
   ];
 
@@ -2113,13 +2064,14 @@ const Training = () => {
         </RevealOnScroll>
 
         <RevealOnScroll delay={200}>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
+          <div className="flex flex-wrap justify-center gap-6">
             {trainingModules.map((item, i) => (
               <TrainingCard
                 key={i}
                 title={`Module ${i + 1}`}
                 description={item.text}
                 icon={item.icon}
+                iconProps={item.iconProps}
                 moduleNumber={i + 1}
               />
             ))}
@@ -2133,28 +2085,100 @@ const Training = () => {
 const WhoCanJoin = () => {
   const { t } = useLanguage();
   const categories = [
-    { text: t.whoCanJoin.category1, icon: Home },
-    { text: t.whoCanJoin.category2, icon: Star },
-    { text: t.whoCanJoin.category3, icon: Eye },
-    { text: t.whoCanJoin.category4, icon: Zap },
-    { text: t.whoCanJoin.category5, icon: DollarSign }
+    { text: t.whoCanJoin.category1, desc: t.whoCanJoin.desc1, icon: Home },
+    { text: t.whoCanJoin.category2, desc: t.whoCanJoin.desc2, icon: Star },
+    { text: t.whoCanJoin.category3, desc: t.whoCanJoin.desc3, icon: Eye },
+    { text: t.whoCanJoin.category4, desc: t.whoCanJoin.desc4, icon: Zap },
+    { text: t.whoCanJoin.category5, desc: t.whoCanJoin.desc5, icon: DollarSign }
   ];
 
   return (
     <section id="who-can-join" className="py-20 relative overflow-hidden z-10">
       <style>{`
+        .who-cards-container {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 2rem 3rem;
+          max-width: 75rem;
+          margin: 0 auto;
+        }
+
+        @media (max-width: 1023px) {
+          .who-cards-container {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem 2rem;
+          }
+        }
+
+        @media (max-width: 767px) {
+          .who-cards-container {
+            grid-template-columns: 1fr;
+          }
+        }
+
         .who-card {
           max-width: 300px;
+          width: 100%;
+          height: 100%;
+          min-height: 280px;
           border-radius: 0.5rem;
           background-color: #fff;
-          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-          border: 1px solid transparent;
+          box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3), 0 2px 4px rgba(30, 58, 138, 0.2);
+          border: 2px solid #2563eb;
           transition: all 0.3s ease;
+          display: flex;
+          flex-direction: column;
+          margin: 0 auto;
         }
 
         .who-card:hover {
-          box-shadow: 0 10px 25px rgba(165, 0, 52, 0.15);
-          border-color: #a50034;
+          box-shadow: 0 12px 28px rgba(30, 58, 138, 0.4), 0 4px 8px rgba(30, 58, 138, 0.3);
+          border-color: #1d4ed8;
+        }
+
+        .who-card:nth-child(4) {
+          grid-column: 1 / 2;
+          grid-row: 2;
+          justify-self: end;
+          margin-right: -4rem;
+        }
+
+        .who-card:nth-child(5) {
+          grid-column: 3 / 4;
+          grid-row: 2;
+          justify-self: start;
+          margin-left: -4rem;
+        }
+
+        @media (max-width: 1023px) {
+          .who-card:nth-child(4) {
+            grid-column: 1 / 2;
+            grid-row: 3;
+            justify-self: center;
+          }
+          .who-card:nth-child(5) {
+            grid-column: 2 / 3;
+            grid-row: 3;
+            justify-self: center;
+          }
+        }
+
+        @media (max-width: 767px) {
+          .who-card:nth-child(4),
+          .who-card:nth-child(5) {
+            grid-column: 1;
+            grid-row: auto;
+            justify-self: center;
+          }
+        }
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
+
+        .who-card:hover {
+          box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+          border-color: #1d4ed8;
         }
 
         .who-card a {
@@ -2163,17 +2187,21 @@ const WhoCanJoin = () => {
 
         .who-content {
           padding: 1.1rem;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
         }
 
         .who-image {
           object-fit: cover;
           width: 100%;
           height: 150px;
-          background: linear-gradient(135deg, #a50034 0%, #d63031 100%);
+          flex-shrink: 0;
+          background: linear-gradient(135deg, #d1d5db 0%, #e5e7eb 100%);
           display: flex;
           align-items: center;
           justify-content: center;
-          color: white;
+          color: #6b7280;
         }
 
         .who-title {
@@ -2199,7 +2227,7 @@ const WhoCanJoin = () => {
           font-weight: 500;
           align-items: center;
           gap: 0.25rem;
-          background-color: #a50034;
+          background-color: #2563eb;
           padding: 4px 8px;
           border-radius: 4px;
         }
@@ -2225,22 +2253,22 @@ const WhoCanJoin = () => {
         </RevealOnScroll>
 
         <RevealOnScroll delay={200}>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="who-cards-container">
             {categories.map((item, i) => (
-              <div key={i} className="who-card mx-auto">
+              <div key={i} className="who-card">
                 {i === 0 ? (
                   <img 
                     src="/family.jpg" 
                     alt="Traditional dhobi families" 
                     className="who-image"
-                    style={{ objectFit: 'cover' }}
+                    style={{ objectFit: 'cover', objectPosition: 'center top' }}
                   />
                 ) : i === 1 ? (
                   <img 
                     src="/Cooking up some love in my favorite corner of the house!.jpg" 
                     alt="Women / Homemakers" 
                     className="who-image"
-                    style={{ objectFit: 'cover' }}
+                    style={{ objectFit: 'cover', objectPosition: 'center top' }}
                   />
                 ) : i === 2 ? (
                   <img 
@@ -2248,6 +2276,20 @@ const WhoCanJoin = () => {
                     alt="Differently-abled individuals" 
                     className="who-image"
                     style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                  />
+                ) : i === 3 ? (
+                  <img 
+                    src="/Sahaj ties up with Techno India to skill 1 lakh rural youth.jpg" 
+                    alt="Unemployed youth" 
+                    className="who-image"
+                    style={{ objectFit: 'cover', objectPosition: 'center center' }}
+                  />
+                ) : i === 4 ? (
+                  <img 
+                    src="/A Guide to Starting a Small Business in Mexico as an American Entrepreneur.jpg" 
+                    alt="Aspiring small business owners" 
+                    className="who-image"
+                    style={{ objectFit: 'cover', objectPosition: 'center center' }}
                   />
                 ) : (
                   <div className="who-image">
@@ -2258,9 +2300,8 @@ const WhoCanJoin = () => {
                   <div className="who-title" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                     {item.text}
                   </div>
-                  <div className="who-action">
-                    <span>Learn More</span>
-                    <ArrowRight size={16} />
+                  <div className="who-desc">
+                    {item.desc}
                   </div>
                 </div>
               </div>
@@ -2286,31 +2327,42 @@ const Franchise = () => {
 
   return (
     <section id="franchise" className="py-20 relative overflow-hidden z-10" style={{
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+      background: '#ffffff',
+      backgroundImage: 'url("/Tamil Nadu state map, administrative division of India_ Vector illustration_.jpg")',
+      backgroundSize: 'contain',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat'
     }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(255, 255, 255, 0.85)',
+        zIndex: 0
+      }}></div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 2 }}>
         <RevealOnScroll>
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 font-heading text-white">{t.franchise.title}</h2>
-            <p className="text-white text-xl font-semibold max-w-3xl mx-auto leading-relaxed">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 font-heading text-[#a50034]">{t.franchise.title}</h2>
+            <p className="text-[#a50034] text-xl font-semibold max-w-3xl mx-auto leading-relaxed">
               {t.franchise.subtitle}
             </p>
           </div>
         </RevealOnScroll>
 
         <RevealOnScroll delay={200}>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="max-w-3xl mx-auto">
             {franchiseItems.map((item, i) => (
               <div
                 key={i}
-                className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20 hover:bg-white/20 hover:border-white/40 hover:shadow-2xl transition-all duration-300 group"
+                className="flex items-center gap-6 py-6 border-b border-gray-200 hover:bg-blue-50/50 transition-all duration-300 px-6 rounded-lg group"
               >
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full bg-white text-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
-                    <item.icon size={24} />
-                  </div>
-                  <p className="text-white font-semibold text-lg flex-1 pt-2">{item.text}</p>
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#1e3a8a] to-[#1e40af] text-white flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0 shadow-lg">
+                  <item.icon size={28} strokeWidth={2.5} />
                 </div>
+                <p className="text-gray-800 font-semibold text-xl flex-1">{item.text}</p>
               </div>
             ))}
           </div>
@@ -2330,7 +2382,7 @@ const CSRSupport = () => {
   ];
 
   return (
-    <section id="csr-support" className="py-20 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 relative overflow-hidden z-10">
+    <section id="csr-support" className="py-20 relative overflow-hidden z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <RevealOnScroll>
           <div className="text-center mb-16">
@@ -2374,22 +2426,7 @@ const CSRSupport = () => {
 const Contact = () => {
   const { t } = useLanguage();
   return (
-    <section id="contact" className="py-20 relative z-10 overflow-hidden" style={{
-      background: '#755139'
-    }}>
-      {/* Sandpaper Pattern Background */}
-      <div className="absolute inset-0 w-full h-full" style={{ opacity: 0.85 }}>
-        <svg className="w-full h-full block" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <filter id="sandpaper-noise">
-              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch" />
-              <feColorMatrix type="saturate" values="0" />
-            </filter>
-          </defs>
-          <rect width="100%" height="100%" filter="url(#sandpaper-noise)" opacity="0.5" />
-        </svg>
-      </div>
-
+    <section id="contact" className="py-20 relative z-10 overflow-hidden bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <RevealOnScroll>
           <div className="bg-white rounded-[2rem] shadow-2xl overflow-hidden grid lg:grid-cols-5 border border-slate-100">
@@ -2436,9 +2473,9 @@ const Contact = () => {
 
               <div className="relative z-10 pt-10">
                 <div className="flex gap-4">
-                  <a href="#" className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors border border-slate-200"><Facebook size={18} /></a>
+                  <a href="https://www.facebook.com/profile.php?id=61587104255575" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors border border-slate-200"><Facebook size={18} /></a>
                   <a href="#" className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-sky-500 hover:text-white transition-colors border border-slate-200"><Twitter size={18} /></a>
-                  <a href="#" className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-pink-600 hover:text-white transition-colors border border-slate-200"><Instagram size={18} /></a>
+                  <a href="https://www.instagram.com/the_salavai_laundry/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-pink-600 hover:text-white transition-colors border border-slate-200"><Instagram size={18} /></a>
                 </div>
               </div>
             </div>
@@ -2545,6 +2582,7 @@ export default function App() {
           <ScrollProgress />
           <WaterRippleEffect />
           <FloatingBubbles />
+          <FloatingLaundryIcons />
           <Hero />
           <About />
           <Vision />
