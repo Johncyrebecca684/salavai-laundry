@@ -1,19 +1,62 @@
-import React, { useState, useEffect, useRef, createContext, useContext } from 'react';
+import React, { useState, useEffect, useRef, createContext, useContext, Component } from 'react';
 import {
-  Menu, X, Phone, Mail, MapPin, Facebook, Twitter, Instagram,
+  Menu, X, Phone, Mail, MapPin, Facebook, Instagram, Twitter,
   Waves, Shirt, Wrench, GraduationCap, ChevronRight, CheckCircle,
   Droplets, Monitor, Star, ArrowRight, PlayCircle, Sparkles, Loader,
-  Home, Eye, BookOpen, RefreshCw, CircleDot, Zap, DollarSign
+  Home, Eye, BookOpen, RefreshCw, CircleDot, Zap, DollarSign, MessageCircle
 } from 'lucide-react';
 import Card from './components/Card';
 import TrainingCard from './components/TrainingCard';
 
 /**
  * ------------------------------------------------------------------
+ * ERROR BOUNDARY
+ * ------------------------------------------------------------------
+ */
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null, errorInfo: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Error caught by boundary:', error, errorInfo);
+    this.setState({ error, errorInfo });
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ padding: '20px', fontFamily: 'monospace' }}>
+          <h1 style={{ color: 'red' }}>Something went wrong.</h1>
+          <details style={{ whiteSpace: 'pre-wrap', marginTop: '20px' }}>
+            <summary>Click for error details</summary>
+            <p><strong>Error:</strong> {this.state.error && this.state.error.toString()}</p>
+            <p><strong>Stack trace:</strong></p>
+            <pre>{this.state.errorInfo && this.state.errorInfo.componentStack}</pre>
+          </details>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+/**
+ * ------------------------------------------------------------------
  * LANGUAGE CONTEXT & TRANSLATIONS
  * ------------------------------------------------------------------
  */
-const LanguageContext = createContext();
+const LanguageContext = createContext({
+  language: 'en',
+  toggleLanguage: () => {},
+  t: {}
+});
 
 const useLanguage = () => {
   const context = useContext(LanguageContext);
@@ -361,6 +404,9 @@ const LanguageProvider = ({ children }) => {
 
   const t = translations[language];
 
+  console.log('LanguageProvider rendering with language:', language);
+  console.log('Translations available:', !!t);
+
   return (
     <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
       {children}
@@ -439,57 +485,7 @@ const GlobalStyles = () => (
       color: var(--color-dark-blue) !important;
     }
 
-    /* Add custom decorative underline to all section headings */
-    h1.font-heading, h2.font-heading, h3.font-heading {
-      position: relative;
-      display: inline-block;
-      padding-bottom: 12px;
-    }
 
-    /* Exclude logo from getting underline */
-    nav h1.font-heading,
-    nav .font-heading {
-      padding-bottom: 0;
-    }
-
-    nav h1.font-heading::after,
-    nav h1.font-heading::before,
-    nav .font-heading::after,
-    nav .font-heading::before {
-      display: none;
-    }
-
-    /* Exclude equipment section headings from getting underline */
-    #equipment h3.font-heading {
-      padding-bottom: 0;
-    }
-
-    #equipment h3.font-heading::after,
-    #equipment h3.font-heading::before {
-      display: none;
-    }
-
-    h1.font-heading::after, h2.font-heading::after, h3.font-heading::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 1px;
-      background: linear-gradient(to right, currentColor 0%, currentColor 45%, transparent 45%, transparent 55%, currentColor 55%, currentColor 100%);
-    }
-
-    /* Laundry droplet symbol in the middle of underline */
-    h1.font-heading::before, h2.font-heading::before, h3.font-heading::before {
-      content: '💧';
-      position: absolute;
-      left: 50%;
-      bottom: -8px;
-      transform: translateX(-50%);
-      font-size: 16px;
-      padding: 0 8px;
-      z-index: 1;
-    }
 
     /* --- Scroll Progress Bar --- */
     .scroll-progress-container {
@@ -1254,14 +1250,12 @@ const Navbar = () => {
 
   const navLinks = [
     { name: t.nav.home, href: '#home' },
+    { name: t.nav.whoCanJoin, href: '#who-can-join' },
+    { name: t.nav.whySalavai, href: '#why-salavai' },
+    { name: t.nav.training, href: '#training' },
+    { name: t.nav.csrSupport, href: '#csr-support' },
     { name: t.nav.about, href: '#about' },
     { name: t.nav.vision, href: '#vision' },
-    { name: t.nav.whySalavai, href: '#why-salavai' },
-    { name: t.nav.equipment, href: '#equipment' },
-    { name: t.nav.training, href: '#training' },
-    { name: t.nav.whoCanJoin, href: '#who-can-join' },
-    { name: t.nav.franchise, href: '#franchise' },
-    { name: t.nav.csrSupport, href: '#csr-support' },
     { name: t.nav.contact, href: '#contact' },
   ];
 
@@ -1412,7 +1406,7 @@ const Navbar = () => {
         <style>{`
           /* Uiverse.io button styles - Letter spacing animation */
           .primary-button {
-            padding: 12px 28px;
+            padding: 14px 32px;
             border-radius: 50px;
             cursor: pointer;
             border: 0;
@@ -1420,7 +1414,7 @@ const Navbar = () => {
             box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
             transition: all 0.5s ease;
             position: relative;
@@ -1461,20 +1455,11 @@ const Navbar = () => {
           <div className="flex items-center justify-between py-3">
             {/* Logo Section */}
             <a href="#home" className="flex items-center gap-2 group flex-shrink-0">
-              <div className="relative w-10 h-10">
-                <div className="absolute inset-0 rounded-full border-3 border-[#003366]"></div>
-                <div className="washing-drum absolute inset-0.5 rounded-full flex items-center justify-center bg-gradient-to-br from-[#003366] via-[#0077b6] to-[#003366]">
-                  <span className="text-lg font-black relative z-10 text-white">S</span>
-                </div>
-              </div>
-              <div>
-                <h1 className="text-sm font-black tracking-tight font-heading text-[#003366]">
-                  {t.hero.brand}
-                </h1>
-                <span className="text-[8px] tracking-[0.2em] font-bold uppercase font-heading text-[#A50034]">
-                  {t.hero.tagline}
-                </span>
-              </div>
+              <img 
+                src="/the salavai laundry.png" 
+                alt="The Salavai Laundry" 
+                className="h-24 w-auto object-contain"
+              />
             </a>
 
             {/* Navigation Links - Single Line */}
@@ -1528,39 +1513,51 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="/medium-shot-woman-smelling-clean-towel.jpg" 
-          alt="Laundry Background" 
-          className="w-full h-full object-cover"
-        />
-        {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/40"></div>
+    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden bg-white">
+      {/* Social Media Icons - Fixed Left Side */}
+      <div className="fixed left-4 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-4 pointer-events-auto">
+        <a href="https://www.facebook.com/profile.php?id=61587104255575" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors border-2 border-slate-300 shadow-lg">
+          <Facebook size={20} />
+        </a>
+        <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-green-600 hover:text-white transition-colors border-2 border-slate-300 shadow-lg">
+          <MessageCircle size={20} />
+        </a>
+        <a href="https://www.instagram.com/the_salavai_laundry/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-pink-600 hover:text-white transition-colors border-2 border-slate-300 shadow-lg">
+          <Instagram size={20} />
+        </a>
       </div>
 
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-32 pointer-events-none">
-        <RevealOnScroll>
-          <p className="text-2xl md:text-3xl text-slate-100 mb-8 font-medium drop-shadow-lg" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-            {t.hero.badge}
-          </p>
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pointer-events-none" style={{ marginTop: '0rem' }}>
+        <RevealOnScroll delay={100}>
+          <div className="mb-8 flex justify-center" style={{ marginTop: '3rem' }}>
+            <img 
+              src="/the salavai logo 4.png" 
+              alt="The Salavai Logo" 
+              className="h-32 md:h-40 lg:h-48 w-auto object-contain"
+            />
+          </div>
         </RevealOnScroll>
 
         <RevealOnScroll delay={200}>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tight mb-10 leading-tight drop-shadow-2xl" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: '900' }}>
-            <span className="text-[#003366]">{t.hero.title1}</span><br />
-            {/* Bright Cyan Text - Water/Laundry Theme */}
-            <span className="text-[#0dcaf0]">
-              {t.hero.title2}
-            </span>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-10 leading-tight drop-shadow-2xl" style={{ fontFamily: "'Arima Madurai', sans-serif", fontWeight: '900' }}>
+            <span className="text-[#c62222]">Self-Income Generating Program</span>
           </h1>
         </RevealOnScroll>
 
-        <RevealOnScroll delay={400}>
-          <p className="mt-6 max-w-3xl mx-auto text-2xl md:text-3xl text-slate-100 mb-14 font-medium leading-relaxed drop-shadow-lg" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-            {t.hero.subtitle}
+        <RevealOnScroll delay={300}>
+          <p className="text-lg text-slate-700 leading-relaxed mb-6" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+            Powered-By
           </p>
+        </RevealOnScroll>
+
+        <RevealOnScroll delay={400}>
+          <div className="flex justify-center mb-10">
+            <img 
+              src="/lg logo.png" 
+              alt="LG Logo" 
+              className="h-16 md:h-20 lg:h-24 w-auto object-contain"
+            />
+          </div>
         </RevealOnScroll>
 
         <RevealOnScroll delay={600}>
@@ -1617,42 +1614,6 @@ const Hero = () => {
               animation: wash-button-spin 1s ease-in-out;
             }
           `}</style>
-          <div className="flex flex-col sm:flex-row justify-center gap-6 pointer-events-auto">
-            <a
-              href="#contact"
-              className="wash-journey-btn liquid-btn group relative px-12 py-6 text-white rounded-full font-bold text-xl overflow-hidden transition-all shadow-[0_5px_15px_rgba(165,0,52,0.4)] hover:shadow-[0_8px_25px_rgba(165,0,52,0.6)] hover:-translate-y-1"
-              style={{ fontFamily: "'Poppins', sans-serif" }}
-            >
-              {/* Bubble decorations */}
-              <span className="bubble-deco" style={{ left: '20%', bottom: '10px', animationDelay: '0s' }}></span>
-              <span className="bubble-deco" style={{ left: '40%', bottom: '10px', animationDelay: '0.3s' }}></span>
-              <span className="bubble-deco" style={{ left: '60%', bottom: '10px', animationDelay: '0.6s' }}></span>
-              <span className="bubble-deco" style={{ left: '80%', bottom: '10px', animationDelay: '0.9s' }}></span>
-
-              <span className="relative z-10 flex items-center gap-3">
-                {t.hero.cta}
-                <ArrowRight size={24} className="spin-icon group-hover:translate-x-2 transition-transform" />
-              </span>
-            </a>
-            {t.hero.cta2 && (
-              <a
-                href="#about"
-                className="wash-journey-btn liquid-btn group relative px-12 py-6 text-white rounded-full font-bold text-xl overflow-hidden transition-all shadow-[0_5px_15px_rgba(165,0,52,0.4)] hover:shadow-[0_8px_25px_rgba(165,0,52,0.6)] hover:-translate-y-1"
-                style={{ fontFamily: "'Poppins', sans-serif" }}
-              >
-                {/* Bubble decorations */}
-                <span className="bubble-deco" style={{ left: '20%', bottom: '10px', animationDelay: '0s' }}></span>
-                <span className="bubble-deco" style={{ left: '40%', bottom: '10px', animationDelay: '0.3s' }}></span>
-                <span className="bubble-deco" style={{ left: '60%', bottom: '10px', animationDelay: '0.6s' }}></span>
-                <span className="bubble-deco" style={{ left: '80%', bottom: '10px', animationDelay: '0.9s' }}></span>
-
-                <span className="relative z-10 flex items-center gap-3">
-                  {t.hero.cta2}
-                  <ArrowRight size={24} className="spin-icon group-hover:translate-x-2 transition-transform" />
-                </span>
-              </a>
-            )}
-          </div>
         </RevealOnScroll>
       </div>
     </section>
@@ -1700,7 +1661,7 @@ const About = () => {
               {/* Floating washing machine container */}
               <div className="lg-washer-float relative">
                 <img
-                  src="/lg-washer-final.png"
+                  src="/LG 10 kg dryer.png"
                   alt="LG Commercial Washing Machine - Professional Direct Drive Washer"
                   className="w-[500px] h-auto relative z-10"
                   style={{
@@ -1845,167 +1806,6 @@ const WhySalavai = () => {
             </div>
           </RevealOnScroll>
         </div>
-      </div>
-    </section>
-  );
-};
-
-const Equipment = () => {
-  const { t } = useLanguage();
-  return (
-    <section id="equipment" className="py-20 bg-white relative z-10">
-      <style>{`
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .equipment-item {
-          animation: fade-in-up 0.6s ease-out forwards;
-          opacity: 0;
-        }
-        .equipment-item:nth-child(1) { animation-delay: 0.1s; }
-        .equipment-item:nth-child(2) { animation-delay: 0.2s; }
-        .equipment-item:nth-child(3) { animation-delay: 0.3s; }
-        .equipment-item:nth-child(4) { animation-delay: 0.4s; }
-      `}</style>
-
-      {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <RevealOnScroll>
-          <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-7xl font-black text-[#003366] font-heading mb-4">
-              {t.equipment.title}
-            </h2>
-            <p className="text-xl md:text-2xl text-[#A50034] max-w-3xl mx-auto" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-              {t.equipment.subtitle}
-            </p>
-          </div>
-        </RevealOnScroll>
-
-        {/* Grid Layout - Apple Style */}
-        <RevealOnScroll delay={200}>
-          <div className="space-y-12">
-            {/* 2x2 Grid */}
-            <div className="grid md:grid-cols-2 gap-3">
-
-              {/* Product 1 - Large Featured */}
-              <div className="equipment-item md:col-span-2 bg-gradient-to-br from-red-700 to-red-900 rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500">
-                <div className="p-12 md:p-16 flex flex-col md:flex-row items-center gap-8">
-                  <div className="flex-1 space-y-4">
-                    <h3 className="text-4xl md:text-5xl font-bold font-heading" style={{ color: '#FFB3D9' }}>{t.equipment.washer.title}</h3>
-                    <p className="text-lg text-white/90 leading-relaxed">
-                      {t.equipment.washer.desc}
-                    </p>
-                    <div className="flex flex-wrap gap-4 pt-4">
-                      <div className="flex items-center gap-2 text-sm font-semibold text-white/90">
-                        <Monitor size={18} className="text-white" />
-                        <span>{t.equipment.washer.smart}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm font-semibold text-white/90">
-                        <Droplets size={18} className="text-white" />
-                        <span>{t.equipment.washer.water}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm font-semibold text-white/90">
-                        <DollarSign size={18} className="text-white" />
-                        <span>{t.equipment.washer.coin}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex-1 flex justify-center">
-                    <img
-                      src="/lg-washer..png"
-                      alt="LG Commercial Washer for Laundromats"
-                      className="w-full max-w-md h-auto transform group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Product 2 */}
-              <div className="equipment-item bg-gradient-to-br from-red-700 to-red-900 rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500">
-                <div className="p-8 md:p-12 text-center">
-                  <div className="mb-6">
-                    <img
-                      src="/LG 10 kg dryer.png"
-                      alt="LG 10kg Commercial Dryer with Sensor Technology"
-                      className="w-full max-w-sm mx-auto h-auto transform group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <h3 className="text-3xl md:text-4xl font-bold text-white font-heading mb-3">{t.equipment.dryer10.title}</h3>
-                  <p className="text-white/90 mb-4">
-                    {t.equipment.dryer10.desc}
-                  </p>
-                  <div className="inline-flex items-center gap-2 text-sm font-semibold text-white">
-                    <Star size={16} />
-                    <span>{t.equipment.dryer10.capacity}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Product 3 */}
-              <div className="equipment-item bg-gradient-to-br from-red-700 to-red-900 rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500">
-                <div className="p-8 md:p-12 text-center">
-                  <div className="mb-6">
-                    <img
-                      src="/15kg LG Titan Electric Dryer.png"
-                      alt="LG Titan 15kg Commercial Electric Dryer"
-                      className="w-full max-w-sm mx-auto h-auto transform group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <h3 className="text-3xl md:text-4xl font-bold text-white font-heading mb-3">{t.equipment.titan.title}</h3>
-                  <p className="text-white/90 mb-4">
-                    {t.equipment.titan.desc}
-                  </p>
-                  <div className="inline-flex items-center gap-2 text-sm font-semibold text-white">
-                    <Zap size={16} />
-                    <span>{t.equipment.titan.capacity}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Product 4 */}
-              <div className="equipment-item md:col-span-2 bg-gradient-to-br from-red-700 to-red-900 rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500">
-                <div className="p-12 md:p-16 flex flex-col md:flex-row-reverse items-center gap-8">
-                  <div className="flex-1 space-y-4">
-                    <h3 className="text-4xl md:text-5xl font-bold text-white font-heading">{t.equipment.gas.title}</h3>
-                    <p className="text-lg text-white/90 leading-relaxed">
-                      {t.equipment.gas.desc}
-                    </p>
-                    <div className="flex flex-wrap gap-4 pt-4">
-                      <div className="flex items-center gap-2 text-sm font-semibold text-white/90">
-                        <DollarSign size={18} className="text-white" />
-                        <span>{t.equipment.gas.cost}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm font-semibold text-white/90">
-                        <CheckCircle size={18} className="text-white" />
-                        <span>{t.equipment.gas.reliable}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm font-semibold text-white/90">
-                        <Wrench size={18} className="text-white" />
-                        <span>{t.equipment.gas.maintenance}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex-1 flex justify-center">
-                    <img
-                      src="/LG 10kg gas dryer.png"
-                      alt="LG 10kg Gas Dryer for Efficient Laundry Operations"
-                      className="w-full max-w-md h-auto transform group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </RevealOnScroll>
       </div>
     </section>
   );
@@ -2245,8 +2045,8 @@ const WhoCanJoin = () => {
         <RevealOnScroll>
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold mb-6 font-heading text-[#a50034]">{t.whoCanJoin.title}</h2>
-            <p className="text-[#a50034] text-xl font-semibold max-w-3xl mx-auto leading-relaxed flex items-center justify-center gap-2" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-              <ArrowRight size={24} />
+            <p className="text-[#a50034] text-2xl md:text-3xl font-semibold max-w-3xl mx-auto leading-relaxed flex items-center justify-center gap-3" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+              <ArrowRight size={32} />
               {t.whoCanJoin.subtitle}
             </p>
           </div>
@@ -2345,8 +2145,7 @@ const Franchise = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 2 }}>
         <RevealOnScroll>
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 font-heading text-[#a50034]">{t.franchise.title}</h2>
-            <p className="text-[#a50034] text-xl font-semibold max-w-3xl mx-auto leading-relaxed">
+            <p className="text-[#c62222] text-3xl md:text-4xl font-bold max-w-3xl mx-auto leading-relaxed">
               {t.franchise.subtitle}
             </p>
           </div>
@@ -2435,7 +2234,7 @@ const Contact = () => {
               {/* Background Image Layer */}
               <div className="absolute inset-0 opacity-20">
                 <img
-                  src="/lg-washer-final.png"
+                  src="/LG 10 kg dryer.png"
                   alt="Background image showing professional laundry equipment setup"
                   className="w-full h-full object-cover"
                 />
@@ -2573,29 +2372,29 @@ const Footer = () => {
 };
 
 export default function App() {
+  console.log('App component rendering...');
+  
   return (
-    <LanguageProvider>
-      <div className="antialiased text-slate-900 bg-white selection:bg-[#A50034] selection:text-white relative">
-        <GlobalStyles />
-        <Navbar />
-        <div className="pt-20">
-          <ScrollProgress />
-          <WaterRippleEffect />
-          <FloatingBubbles />
-          <FloatingLaundryIcons />
-          <Hero />
-          <About />
-          <Vision />
-          <WhySalavai />
-          <Equipment />
-          <Training />
-          <WhoCanJoin />
-          <Franchise />
-          <CSRSupport />
-          <Contact />
-          <Footer />
+    <ErrorBoundary>
+      <LanguageProvider>
+        <div className="antialiased text-slate-900 bg-white selection:bg-[#A50034] selection:text-white relative">
+          <GlobalStyles />
+          <Navbar />
+          <div className="pt-20">
+            <ScrollProgress />
+            <Hero />
+            <WhoCanJoin />
+            <Franchise />
+            <WhySalavai />
+            <Training />
+            <CSRSupport />
+            <About />
+            <Vision />
+            <Contact />
+            <Footer />
+          </div>
         </div>
-      </div>
-    </LanguageProvider>
+      </LanguageProvider>
+    </ErrorBoundary>
   );
 }
