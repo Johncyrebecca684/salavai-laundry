@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, createContext, useContext, Component } from 'react';
 import {
-  Menu, X, Phone, Mail, MapPin, Facebook, Instagram, Twitter,
+  Menu, X, Phone, Mail, MapPin, Facebook, Instagram, Twitter, MessageSquare,
   Waves, Shirt, Wrench, GraduationCap, ChevronRight, CheckCircle,
   Droplets, Monitor, Star, ArrowRight, PlayCircle, Sparkles, Loader,
   Home, Eye, BookOpen, RefreshCw, CircleDot, Zap, DollarSign, MessageCircle
@@ -1516,13 +1516,13 @@ const Hero = () => {
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden bg-white">
       {/* Social Media Icons - Fixed Left Side */}
       <div className="fixed left-4 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-4 pointer-events-auto">
-        <a href="https://www.facebook.com/profile.php?id=61587104255575" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors border-2 border-slate-300 shadow-lg">
+        <a href="https://www.facebook.com/profile.php?id=61587104255575" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg">
           <Facebook size={20} />
         </a>
-        <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-green-600 hover:text-white transition-colors border-2 border-slate-300 shadow-lg">
+        <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded bg-green-500 text-white flex items-center justify-center hover:bg-green-600 transition-colors shadow-lg">
           <MessageCircle size={20} />
         </a>
-        <a href="https://www.instagram.com/the_salavai_laundry/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-pink-600 hover:text-white transition-colors border-2 border-slate-300 shadow-lg">
+        <a href="https://www.instagram.com/the_salavai_laundry/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition-colors shadow-lg">
           <Instagram size={20} />
         </a>
       </div>
@@ -1763,11 +1763,11 @@ const WhySalavai = () => {
   return (
     <section id="why-salavai" className="py-20 relative overflow-hidden z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid md:grid-cols-2 gap-16 items-stretch">
-          {/* Left Side - Heading and Points */}
+        <div className="max-w-4xl mx-auto">
+          {/* Heading and Points */}
           <RevealOnScroll>
             <div className="flex flex-col h-full relative z-20">
-              <h1 className="text-4xl md:text-6xl font-bold font-heading text-[#a50034] leading-tight mb-8" style={{ position: 'relative', zIndex: 20 }}>
+              <h1 className="text-4xl md:text-6xl font-bold font-heading text-[#a50034] leading-tight mb-8 text-center" style={{ position: 'relative', zIndex: 20 }}>
                 {t.whySalavai.title}
               </h1>
               
@@ -1792,17 +1792,6 @@ const WhySalavai = () => {
                   </div>
                 ))}
               </div>
-            </div>
-          </RevealOnScroll>
-
-          {/* Right Side - Image */}
-          <RevealOnScroll delay={200}>
-            <div className="rounded-full overflow-hidden shadow-xl max-w-md mx-auto aspect-square">
-              <img 
-                src="/still-life-say-no-fast-fashion.jpg" 
-                alt="Why Salavai Laundry" 
-                className="w-full h-full object-cover"
-              />
             </div>
           </RevealOnScroll>
         </div>
@@ -2272,9 +2261,9 @@ const Contact = () => {
 
               <div className="relative z-10 pt-10">
                 <div className="flex gap-4">
-                  <a href="https://www.facebook.com/profile.php?id=61587104255575" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors border border-slate-200"><Facebook size={18} /></a>
-                  <a href="#" className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-sky-500 hover:text-white transition-colors border border-slate-200"><Twitter size={18} /></a>
-                  <a href="https://www.instagram.com/the_salavai_laundry/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-pink-600 hover:text-white transition-colors border border-slate-200"><Instagram size={18} /></a>
+                  <a href="https://www.facebook.com/profile.php?id=61587104255575" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-md"><Facebook size={18} /></a>
+                  <a href="#" className="w-10 h-10 rounded bg-green-500 text-white flex items-center justify-center hover:bg-green-600 transition-colors shadow-md"><MessageSquare size={18} /></a>
+                  <a href="https://www.instagram.com/the_salavai_laundry/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition-colors shadow-md"><Instagram size={18} /></a>
                 </div>
               </div>
             </div>
