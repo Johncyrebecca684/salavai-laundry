@@ -1456,7 +1456,7 @@ const Navbar = () => {
             {/* Logo Section */}
             <a href="#home" className="flex items-center gap-2 group flex-shrink-0">
               <img 
-                src="/the salavai laundry.png" 
+                src="/logo.png" 
                 alt="The Salavai Laundry" 
                 className="h-24 w-auto object-contain"
               />
@@ -1531,7 +1531,7 @@ const Hero = () => {
         <RevealOnScroll delay={100}>
           <div className="mb-8 flex justify-center" style={{ marginTop: '3rem' }}>
             <img 
-              src="/the salavai logo 4.png" 
+              src="/The salavai logo transparent.png" 
               alt="The Salavai Logo" 
               className="h-32 md:h-40 lg:h-48 w-auto object-contain"
             />
@@ -1763,34 +1763,70 @@ const WhySalavai = () => {
   return (
     <section id="why-salavai" className="py-20 relative overflow-hidden z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           {/* Heading and Points */}
           <RevealOnScroll>
-            <div className="flex flex-col h-full relative z-20">
-              <h1 className="text-4xl md:text-6xl font-bold font-heading text-[#a50034] leading-tight mb-8 text-center" style={{ position: 'relative', zIndex: 20 }}>
-                {t.whySalavai.title}
-              </h1>
-              
-              {/* Icon-based List */}
-              <div className="space-y-2 flex-1">
-                {reasons.map((item, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-6 py-5 border-b border-gray-200 hover:bg-red-50/50 transition-all duration-300 px-4 rounded-lg group"
-                  >
-                    <div className="w-12 h-12 bg-white flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
-                      {i === 0 && <item.icon size={32} strokeWidth={2} className="text-[#a50034]" fill="#a50034" />}
-                      {i === 1 && <item.icon size={32} strokeWidth={3} className="text-[#a50034]" />}
-                      {i === 2 && <item.icon size={32} strokeWidth={2} className="text-white" fill="#a50034" />}
-                      {i === 3 && <item.icon size={32} strokeWidth={2} className="text-[#a50034]" fill="#a50034" />}
-                      {i === 4 && <item.icon size={32} strokeWidth={3} className="text-[#a50034]" />}
-                      {i === 5 && <item.icon size={32} strokeWidth={2} className="text-[#a50034]" fill="#a50034" />}
+            <div className="flex flex-col lg:flex-row items-center gap-12 relative z-20">
+              {/* Left Side - Content */}
+              <div className="flex-1 w-full lg:w-auto">
+                <h1 className="text-4xl md:text-6xl font-bold font-heading text-[#a50034] leading-tight mb-8 text-center lg:text-left" style={{ position: 'relative', zIndex: 20 }}>
+                  {t.whySalavai.title}
+                </h1>
+                
+                {/* Icon-based List */}
+                <div className="space-y-2 flex-1">
+                  {reasons.map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-6 py-5 border-b border-gray-200 hover:bg-red-50/50 transition-all duration-300 px-4 rounded-lg group"
+                    >
+                      <div className="w-12 h-12 bg-white flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0 overflow-hidden rounded">
+                        {i === 0 && <img src="/Social welfare-focused initiative.png" alt="Social welfare" className="w-full h-full object-cover" />}
+                        {i === 1 && <img src="/low inveztment.png" alt="Low investment" className="w-full h-full object-cover" />}
+                        {i === 2 && <img src="/complete support.png" alt="Complete support" className="w-full h-full object-cover" />}
+                        {i === 3 && <img src="/modern machinery.png" alt="Modern machinery" className="w-full h-full object-cover" />}
+                        {i === 4 && <img src="/good income opportunity.png" alt="Good income opportunity" className="w-full h-full object-cover" />}
+                        {i === 5 && <img src="/family developement.png" alt="Family life improvement" className="w-full h-full object-cover" />}
+                      </div>
+                      <p className="text-gray-800 font-semibold text-lg flex-1" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                        {item.text}
+                      </p>
                     </div>
-                    <p className="text-gray-800 font-semibold text-lg flex-1" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                      {item.text}
-                    </p>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Side - Connected Round Frame Images */}
+              <div className="flex-shrink-0 w-full lg:w-auto flex justify-center lg:justify-end">
+                <div className="relative w-[400px] h-[500px] md:w-[450px] md:h-[550px]">
+                  {/* First Image - Top */}
+                  <div className="absolute top-0 right-0 group">
+                    <img 
+                      src="/tamil peoples.jpeg" 
+                      alt="Tamil Peoples" 
+                      className="w-56 h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover rounded-full shadow-2xl border-8 border-white group-hover:scale-105 transition-transform duration-300 relative z-10"
+                    />
+                    {/* Decorative ring */}
+                    <div className="absolute -inset-2 bg-gradient-to-br from-[#a50034]/20 to-[#003366]/20 rounded-full -z-10"></div>
                   </div>
-                ))}
+
+                  {/* Second Image - Bottom (Overlapping) */}
+                  <div className="absolute bottom-0 left-0 group">
+                    <img 
+                      src="/kovil page.jpeg" 
+                      alt="Kovil Page" 
+                      className="w-56 h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover rounded-full shadow-2xl border-8 border-white group-hover:scale-105 transition-transform duration-300 relative z-10"
+                    />
+                    {/* Decorative ring */}
+                    <div className="absolute -inset-2 bg-gradient-to-br from-[#003366]/20 to-[#a50034]/20 rounded-full -z-10"></div>
+                  </div>
+
+                  {/* Connecting Chain/Link Effect */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-40 bg-gradient-to-b from-[#a50034]/30 via-[#003366]/30 to-[#a50034]/30 rounded-full blur-sm"></div>
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div className="w-12 h-12 border-4 border-[#a50034] rounded-full bg-white shadow-lg"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </RevealOnScroll>
@@ -1885,93 +1921,41 @@ const WhoCanJoin = () => {
     <section id="who-can-join" className="py-20 relative overflow-hidden z-10">
       <style>{`
         .who-cards-container {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 2rem 3rem;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 2rem;
           max-width: 75rem;
           margin: 0 auto;
         }
 
-        @media (max-width: 1023px) {
+        @media (min-width: 1024px) {
           .who-cards-container {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem 2rem;
+            gap: 2rem 3rem;
           }
         }
 
         @media (max-width: 767px) {
           .who-cards-container {
-            grid-template-columns: 1fr;
+            gap: 1.5rem;
           }
         }
 
         .who-card {
           max-width: 300px;
           width: 100%;
-          height: 100%;
-          min-height: 280px;
           border-radius: 0.5rem;
           background-color: #fff;
-          box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3), 0 2px 4px rgba(30, 58, 138, 0.2);
-          border: 2px solid #2563eb;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
           transition: all 0.3s ease;
           display: flex;
           flex-direction: column;
-          margin: 0 auto;
-        }
-
-        .who-card:hover {
-          box-shadow: 0 12px 28px rgba(30, 58, 138, 0.4), 0 4px 8px rgba(30, 58, 138, 0.3);
-          border-color: #1d4ed8;
-        }
-
-        .who-card:nth-child(4) {
-          grid-column: 1 / 2;
-          grid-row: 2;
-          justify-self: end;
-          margin-right: -4rem;
-        }
-
-        .who-card:nth-child(5) {
-          grid-column: 3 / 4;
-          grid-row: 2;
-          justify-self: start;
-          margin-left: -4rem;
-        }
-
-        @media (max-width: 1023px) {
-          .who-card:nth-child(4) {
-            grid-column: 1 / 2;
-            grid-row: 3;
-            justify-self: center;
-          }
-          .who-card:nth-child(5) {
-            grid-column: 2 / 3;
-            grid-row: 3;
-            justify-self: center;
-          }
-        }
-
-        @media (max-width: 767px) {
-          .who-card:nth-child(4),
-          .who-card:nth-child(5) {
-            grid-column: 1;
-            grid-row: auto;
-            justify-self: center;
-          }
-        }
-            margin-left: auto;
-            margin-right: auto;
-          }
+          overflow: hidden;
         }
 
         .who-card:hover {
           box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
-          border-color: #1d4ed8;
-        }
-
-        .who-card a {
-          text-decoration: none;
+          transform: translateY(-4px);
         }
 
         .who-content {
@@ -1982,9 +1966,9 @@ const WhoCanJoin = () => {
         }
 
         .who-image {
-          object-fit: cover;
           width: 100%;
           height: 150px;
+          object-fit: cover;
           flex-shrink: 0;
           background: linear-gradient(135deg, #d1d5db 0%, #e5e7eb 100%);
           display: flex;
@@ -2163,10 +2147,10 @@ const Franchise = () => {
 const CSRSupport = () => {
   const { t } = useLanguage();
   const partners = [
-    { text: t.csrSupport.partner1, icon: Star },
-    { text: t.csrSupport.partner2, icon: DollarSign },
-    { text: t.csrSupport.partner3, icon: Home },
-    { text: t.csrSupport.partner4, icon: GraduationCap }
+    { text: t.csrSupport.partner1, icon: Star, color: '#114487' },
+    { text: t.csrSupport.partner2, icon: DollarSign, color: '#114487' },
+    { text: t.csrSupport.partner3, icon: Home, color: '#114487' },
+    { text: t.csrSupport.partner4, icon: GraduationCap, color: '#114487' }
   ];
 
   return (
@@ -2175,24 +2159,23 @@ const CSRSupport = () => {
         <RevealOnScroll>
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold mb-6 font-heading text-[#047857]">{t.csrSupport.title}</h2>
-            <p className="text-[#047857] text-xl font-semibold max-w-3xl mx-auto leading-relaxed mb-8">
+            <p className="text-[#c62222] text-3xl md:text-4xl font-semibold max-w-3xl mx-auto leading-relaxed mb-8">
               {t.csrSupport.subtitle}
             </p>
           </div>
         </RevealOnScroll>
 
         <RevealOnScroll delay={200}>
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
+          <div className="flex flex-col gap-4 max-w-md mx-auto mb-12 cards">
             {partners.map((item, i) => (
               <div
                 key={i}
-                className="bg-white p-8 rounded-2xl border-2 border-emerald-200 hover:border-emerald-400 hover:shadow-xl transition-all duration-300 group"
+                style={{ backgroundColor: item.color }}
+                className="card flex items-center justify-center flex-col text-center h-[100px] w-full rounded-[10px] text-white cursor-pointer transition-all duration-[400ms] hover:scale-110"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <item.icon size={26} />
-                  </div>
-                  <p className="text-slate-800 font-semibold text-lg flex-1">{item.text}</p>
+                <div className="flex items-center gap-3">
+                  <item.icon size={24} />
+                  <p className="tip text-base font-bold">{item.text}</p>
                 </div>
               </div>
             ))}
@@ -2200,8 +2183,8 @@ const CSRSupport = () => {
         </RevealOnScroll>
 
         <RevealOnScroll delay={400}>
-          <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl border-2 border-emerald-300 max-w-4xl mx-auto">
-            <p className="text-slate-700 text-lg text-center leading-relaxed font-medium">
+          <div className="backdrop-blur-sm p-8 rounded-2xl border-2 max-w-4xl mx-auto" style={{ backgroundColor: '#c62222', borderColor: '#c62222' }}>
+            <p className="text-white text-lg text-center leading-relaxed font-medium">
               {t.csrSupport.description}
             </p>
           </div>
@@ -2259,13 +2242,6 @@ const Contact = () => {
                 </div>
               </div>
 
-              <div className="relative z-10 pt-10">
-                <div className="flex gap-4">
-                  <a href="https://www.facebook.com/profile.php?id=61587104255575" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-md"><Facebook size={18} /></a>
-                  <a href="#" className="w-10 h-10 rounded bg-green-500 text-white flex items-center justify-center hover:bg-green-600 transition-colors shadow-md"><MessageSquare size={18} /></a>
-                  <a href="https://www.instagram.com/the_salavai_laundry/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition-colors shadow-md"><Instagram size={18} /></a>
-                </div>
-              </div>
             </div>
 
             <div className="lg:col-span-3 p-12 bg-white">
@@ -2311,7 +2287,8 @@ const Contact = () => {
                      }
                    }
                    .water-float-btn {
-                     background: linear-gradient(135deg, #0077b6 0%, #0096c7 100%);
+                     background: linear-gradient(135deg, #0077b6 0%, #114487 100%);
+      
                    }
                    .water-float-btn::before {
                      content: '';
@@ -2329,6 +2306,7 @@ const Contact = () => {
                    .water-float-btn span {
                      position: relative;
                      z-index: 1;
+                     color: white;
                    }
                  `}</style>
                   <span>Send Message</span>

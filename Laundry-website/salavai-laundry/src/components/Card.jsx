@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const Card = ({ title, subtitle, children }) => {
   return (
@@ -13,9 +13,11 @@ const Card = ({ title, subtitle, children }) => {
       </div>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled.div`
+  width: 100%;
+
   .card {
     width: 100%;
     min-height: 200px;
@@ -44,8 +46,8 @@ const StyledWrapper = styled.div`
     left: -20%;
     border-radius: 50%;
     border: 35px solid rgba(0, 119, 182, 0.15);
-    transition: all .8s ease;
-    filter: blur(.5rem);
+    transition: all 0.8s ease;
+    filter: blur(0.5rem);
   }
 
   .text {
@@ -56,7 +58,7 @@ const StyledWrapper = styled.div`
     color: #003366;
     font-weight: 700;
     font-size: 1.6em;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: "Cormorant Garamond", serif;
   }
 
   .subtitle {
@@ -69,10 +71,9 @@ const StyledWrapper = styled.div`
 
   .icons {
     display: flex;
-    justify-items: center;
     align-items: center;
     width: 100%;
-    border-radius: 0px 0px 15px 15px;
+    border-radius: 0 0 15px 15px;
     overflow: hidden;
   }
 
