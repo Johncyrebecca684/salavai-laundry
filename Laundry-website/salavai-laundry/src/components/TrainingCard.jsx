@@ -7,7 +7,6 @@ const TrainingCard = ({ title, description, icon: Icon, moduleNumber, iconProps 
       <div className="card">
         {Icon && <Icon className="card-icon" {...iconProps} />}
         <div className="card__content">
-          <p className="card__title">{title}</p>
           <p className="card__description">{description}</p>
         </div>
       </div>
@@ -42,13 +41,6 @@ const StyledWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     text-align: center;
-  }
-
-  .card__title {
-    margin: 0 0 10px 0;
-    font-size: 20px;
-    color: #333;
-    font-weight: 700;
   }
 
   .card__description {

@@ -126,8 +126,7 @@ const translations = {
       reason2: 'Low investment',
       reason3: 'Complete support',
       reason4: 'Modern machinery',
-      reason5: 'Good income opportunity',
-      reason6: 'Family life improvement'
+      reason5: 'Good income opportunity'
     },
     // Equipment Section
     equipment: {
@@ -177,7 +176,7 @@ const translations = {
       category1: 'Traditional dhobi families',
       desc1: 'Modernize your traditional skills with professional equipment. Build a sustainable business for your family\'s future.',
       category2: 'Women / Homemakers',
-      desc2: 'Achieve financial independence from home. Flexible hours that fit your family responsibilities.',
+      desc2: 'Achieve financial independence. Flexible hours that fit your family responsibilities.',
       category3: 'Differently-abled individuals',
       desc3: 'Equal opportunity for meaningful work. We provide specialized training and accessible equipment.',
       category4: 'Unemployed youth',
@@ -191,11 +190,12 @@ const translations = {
       subtitle: 'What we provide:',
       item1: 'Complete business setup',
       item2: 'Store design',
-      item3: 'Brand name',
-      item4: 'Machines',
-      item5: 'Complete training',
+      item3: 'Branding Name',
+      item4: 'Laundry Equipment',
+      item5: 'Complete training & Skilled Staff',
       item6: 'Marketing support',
-      item7: 'Ongoing guidance'
+      item7: 'Digital Marketing',
+      item8: 'Ongoing guidance'
     },
     // CSR & Government Support Section
     csrSupport: {
@@ -288,8 +288,7 @@ const translations = {
       reason2: 'குறைந்த முதலீடு',
       reason3: 'முழு ஆதரவு',
       reason4: 'நவீன இயந்திரங்கள்',
-      reason5: 'நல்ல வருமான வாய்ப்பு',
-      reason6: 'குடும்ப வாழ்க்கை முன்னேற்றம்'
+      reason5: 'நல்ல வருமான வாய்ப்பு'
     },
     // Equipment Section
     equipment: {
@@ -1214,6 +1213,7 @@ const RevealOnScroll = ({ children, className = "", delay = 0 }) => {
 const Navbar = () => {
   const { language, toggleLanguage, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState('#home');
 
@@ -1402,19 +1402,19 @@ const Navbar = () => {
       `}</style>
 
       {/* Horizontal Top Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-white shadow-lg z-50">
+      <nav className="hidden md:block fixed top-0 left-0 right-0 bg-white shadow-md md:shadow-lg z-50">
         <style>{`
           /* Uiverse.io button styles - Letter spacing animation */
           .primary-button {
-            padding: 14px 32px;
+            padding: 6px 10px;
             border-radius: 50px;
             cursor: pointer;
             border: 0;
             background-color: white;
             box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
-            letter-spacing: 1.5px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
-            font-size: 12px;
+            font-size: 9px;
             font-weight: bold;
             transition: all 0.5s ease;
             position: relative;
@@ -1449,21 +1449,81 @@ const Navbar = () => {
             transform: translateY(5px);
             transition: 100ms;
           }
+
+          @media (min-width: 640px) {
+            .primary-button {
+              padding: 8px 14px;
+              font-size: 10px;
+              letter-spacing: 1px;
+            }
+          }
+
+          @media (min-width: 768px) {
+            .primary-button {
+              padding: 10px 20px;
+              font-size: 11px;
+              letter-spacing: 1.5px;
+            }
+          }
+
+          @media (min-width: 1024px) {
+            .primary-button {
+              padding: 12px 24px;
+              font-size: 12px;
+              letter-spacing: 1.5px;
+            }
+          }
+
+          .nav-scroll-container {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+          }
+
+          .nav-scroll-container::-webkit-scrollbar {
+            display: none;
+          }
+
+          /* Mobile Menu Slide Animation */
+          @keyframes slideIn {
+            from {
+              transform: translateX(-100%);
+            }
+            to {
+              transform: translateX(0);
+            }
+          }
+
+          @keyframes slideOut {
+            from {
+              transform: translateX(0);
+            }
+            to {
+              transform: translateX(-100%);
+            }
+          }
+
+          .mobile-menu-enter {
+            animation: slideIn 0.3s ease-out forwards;
+          }
+
+          .mobile-menu-exit {
+            animation: slideOut 0.3s ease-out forwards;
+          }
         `}</style>
 
-        <div className="max-w-full mx-auto px-4">
-          <div className="flex items-center justify-between py-3">
+        <div className="max-w-full mx-auto px-1 sm:px-1.5 md:px-3">
+          <div className="flex items-center justify-between gap-2 py-0.5 md:py-1">
             {/* Logo Section */}
-            <a href="#home" className="flex items-center gap-2 group flex-shrink-0">
+            <a href="#home" className="flex items-center gap-1 group flex-shrink-0">
               <img 
                 src="/logo.png" 
                 alt="The Salavai Laundry" 
-                className="h-24 w-auto object-contain"
+                className="h-12 sm:h-14 md:h-20 w-auto object-contain"
               />
             </a>
 
-            {/* Navigation Links - Single Line */}
-            <div className="flex items-center gap-3 overflow-x-auto flex-1 justify-center px-4">
+            {/* Desktop Navigation Links - Hidden on Mobile */}
+            <div className="hidden md:flex items-center gap-2 overflow-x-auto flex-1 justify-center px-4">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
@@ -1481,17 +1541,102 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Language Toggle */}
+            {/* Language Toggle - Desktop */}
             <button
               onClick={toggleLanguage}
-              className="primary-button active flex items-center gap-2 flex-shrink-0"
+              className="hidden md:flex primary-button active items-center gap-1.5 flex-shrink-0"
+              style={{ padding: '6px 8px' }}
             >
-              <RefreshCw size={14} className="washing-drum" style={{ animationDuration: '3s' }} />
-              {t.nav.language}
+              <RefreshCw size={10} className="washing-drum sm:w-3 sm:h-3 md:w-4 md:h-4" style={{ animationDuration: '3s' }} />
+              <span>{t.nav.language}</span>
             </button>
           </div>
         </div>
       </nav>
+
+      {/* Mobile Navbar - Menu Button Left, Logo Right */}
+      <nav className="md:hidden fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+        <div className="flex items-center justify-between px-2 py-1">
+          {/* Menu Button - Left */}
+          <button
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="primary-button active flex items-center gap-1"
+            style={{ padding: '4px 8px' }}
+          >
+            <Menu size={16} />
+          </button>
+          
+          {/* Logo - Right */}
+          <img 
+            src="/logo.png" 
+            alt="The Salavai Laundry" 
+            className="h-10 w-auto object-contain"
+          />
+        </div>
+      </nav>
+
+      {/* Mobile Slide Menu */}
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop Overlay */}
+            <div 
+              className="fixed inset-0 bg-black/50 z-[60] md:hidden"
+              onClick={() => setIsMobileMenuOpen(false)}
+            ></div>
+
+            {/* Sliding Menu Panel */}
+            <div className={`fixed top-0 left-0 h-full w-[280px] bg-white shadow-2xl z-[70] md:hidden mobile-menu-enter`}>
+              <div className="flex flex-col h-full">
+                {/* Menu Header */}
+                <div className="flex items-center justify-between p-4 border-b border-gray-200">
+                  <img 
+                    src="/logo.png" 
+                    alt="The Salavai Laundry" 
+                    className="h-12 w-auto object-contain"
+                  />
+                  <button
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                  >
+                    <X size={24} className="text-[#003366]" />
+                  </button>
+                </div>
+
+                {/* Navigation Links */}
+                <div className="flex-1 overflow-y-auto py-4">
+                  {navLinks.map((link) => (
+                    <a
+                      key={link.name}
+                      href={link.href}
+                      onClick={() => {
+                        setActiveLink(link.href);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className={`block px-6 py-4 text-base font-semibold transition-colors ${
+                        activeLink === link.href 
+                          ? 'bg-[#003366] text-white' 
+                          : 'text-[#003366] hover:bg-blue-50'
+                      }`}
+                    >
+                      {link.name}
+                    </a>
+                  ))}
+                </div>
+
+                {/* Language Toggle - Mobile */}
+                <div className="p-4 border-t border-gray-200">
+                  <button
+                    onClick={toggleLanguage}
+                    className="w-full primary-button active flex items-center justify-center gap-2 py-3"
+                  >
+                    <RefreshCw size={16} className="washing-drum" style={{ animationDuration: '3s' }} />
+                    <span>{t.nav.language}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
     </>
   );
 };
@@ -1515,47 +1660,47 @@ const Hero = () => {
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden bg-white">
       {/* Social Media Icons - Fixed Left Side */}
-      <div className="fixed left-4 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-4 pointer-events-auto">
-        <a href="https://www.facebook.com/profile.php?id=61587104255575" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg">
-          <Facebook size={20} />
+      <div className="fixed left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-1.5 md:gap-4 pointer-events-auto">
+        <a href="https://www.facebook.com/profile.php?id=61587104255575" target="_blank" rel="noopener noreferrer" className="w-8 h-8 md:w-12 md:h-12 rounded bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg">
+          <Facebook size={14} className="md:w-5 md:h-5" />
         </a>
-        <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded bg-green-500 text-white flex items-center justify-center hover:bg-green-600 transition-colors shadow-lg">
-          <MessageCircle size={20} />
+        <a href="https://wa.me/916385050882?text=Hi" target="_blank" rel="noopener noreferrer" className="w-8 h-8 md:w-12 md:h-12 rounded bg-green-500 text-white flex items-center justify-center hover:bg-green-600 transition-colors shadow-lg">
+          <MessageCircle size={14} className="md:w-5 md:h-5" />
         </a>
-        <a href="https://www.instagram.com/the_salavai_laundry/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition-colors shadow-lg">
-          <Instagram size={20} />
+        <a href="https://www.instagram.com/the_salavai_laundry/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 md:w-12 md:h-12 rounded bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition-colors shadow-lg">
+          <Instagram size={14} className="md:w-5 md:h-5" />
         </a>
       </div>
 
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pointer-events-none" style={{ marginTop: '0rem' }}>
+      <div className="relative z-20 max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 text-center pointer-events-none" style={{ marginTop: '0rem' }}>
         <RevealOnScroll delay={100}>
-          <div className="mb-8 flex justify-center" style={{ marginTop: '3rem' }}>
+          <div className="mb-6 md:mb-8 flex justify-center" style={{ marginTop: '1.5rem' }}>
             <img 
               src="/The salavai logo transparent.png" 
               alt="The Salavai Logo" 
-              className="h-32 md:h-40 lg:h-48 w-auto object-contain"
+              className="h-24 sm:h-32 md:h-40 lg:h-48 w-auto object-contain"
             />
           </div>
         </RevealOnScroll>
 
         <RevealOnScroll delay={200}>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-10 leading-tight drop-shadow-2xl" style={{ fontFamily: "'Arima Madurai', sans-serif", fontWeight: '900' }}>
+          <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 md:mb-10 leading-tight drop-shadow-2xl" style={{ fontFamily: "'Arima Madurai', sans-serif", fontWeight: '900' }}>
             <span className="text-[#c62222]">Self-Income Generating Program</span>
           </h1>
         </RevealOnScroll>
 
         <RevealOnScroll delay={300}>
-          <p className="text-lg text-slate-700 leading-relaxed mb-6" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+          <p className="text-base md:text-lg text-slate-700 leading-relaxed mb-4 md:mb-6" style={{ fontFamily: "'Montserrat', sans-serif" }}>
             Powered-By
           </p>
         </RevealOnScroll>
 
         <RevealOnScroll delay={400}>
-          <div className="flex justify-center mb-10">
+          <div className="flex justify-center mb-6 md:mb-10">
             <img 
               src="/lg logo.png" 
               alt="LG Logo" 
-              className="h-16 md:h-20 lg:h-24 w-auto object-contain"
+              className="h-12 sm:h-16 md:h-20 lg:h-24 w-auto object-contain"
             />
           </div>
         </RevealOnScroll>
@@ -1756,8 +1901,7 @@ const WhySalavai = () => {
     { text: t.whySalavai.reason2, icon: DollarSign },
     { text: t.whySalavai.reason3, icon: CheckCircle },
     { text: t.whySalavai.reason4, icon: Wrench },
-    { text: t.whySalavai.reason5, icon: Waves },
-    { text: t.whySalavai.reason6, icon: Shirt }
+    { text: t.whySalavai.reason5, icon: Waves }
   ];
 
   return (
@@ -1786,7 +1930,6 @@ const WhySalavai = () => {
                         {i === 2 && <img src="/complete support.png" alt="Complete support" className="w-full h-full object-cover" />}
                         {i === 3 && <img src="/modern machinery.png" alt="Modern machinery" className="w-full h-full object-cover" />}
                         {i === 4 && <img src="/good income opportunity.png" alt="Good income opportunity" className="w-full h-full object-cover" />}
-                        {i === 5 && <img src="/family developement.png" alt="Family life improvement" className="w-full h-full object-cover" />}
                       </div>
                       <p className="text-gray-800 font-semibold text-lg flex-1" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                         {item.text}
@@ -2031,7 +2174,7 @@ const WhoCanJoin = () => {
               <div key={i} className="who-card">
                 {i === 0 ? (
                   <img 
-                    src="/family.jpg" 
+                    src="/dhobi.jpeg" 
                     alt="Traditional dhobi families" 
                     className="who-image"
                     style={{ objectFit: 'cover', objectPosition: 'center top' }}
@@ -2095,7 +2238,8 @@ const Franchise = () => {
     { text: t.franchise.item4, icon: Wrench },
     { text: t.franchise.item5, icon: GraduationCap },
     { text: t.franchise.item6, icon: Sparkles },
-    { text: t.franchise.item7, icon: RefreshCw }
+    { text: t.franchise.item7, icon: Monitor },
+    { text: t.franchise.item8, icon: RefreshCw }
   ];
 
   return (
