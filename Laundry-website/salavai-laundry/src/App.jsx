@@ -1516,7 +1516,7 @@ const Navbar = () => {
             {/* Logo Section */}
             <a href="#home" className="flex items-center gap-1 group flex-shrink-0">
               <img 
-                src="/logo.png" 
+                src="/images/logo.png" 
                 alt="The Salavai Laundry" 
                 className="h-12 sm:h-14 md:h-20 w-auto object-contain"
               />
@@ -1568,7 +1568,7 @@ const Navbar = () => {
           
           {/* Logo - Right */}
           <img 
-            src="/logo.png" 
+            src="/images/logo.png" 
             alt="The Salavai Laundry" 
             className="h-10 w-auto object-contain"
           />
@@ -1590,7 +1590,7 @@ const Navbar = () => {
                 {/* Menu Header */}
                 <div className="flex items-center justify-between p-4 border-b border-gray-200">
                   <img 
-                    src="/logo.png" 
+                    src="/images/logo.png" 
                     alt="The Salavai Laundry" 
                     className="h-12 w-auto object-contain"
                   />
@@ -1676,7 +1676,7 @@ const Hero = () => {
         <RevealOnScroll delay={100}>
           <div className="mb-6 md:mb-8 flex justify-center" style={{ marginTop: '1.5rem' }}>
             <img 
-              src="/The salavai logo transparent.png" 
+              src="/images/The salavai logo transparent.png" 
               alt="The Salavai Logo" 
               className="h-24 sm:h-32 md:h-40 lg:h-48 w-auto object-contain"
             />
@@ -1698,7 +1698,7 @@ const Hero = () => {
         <RevealOnScroll delay={400}>
           <div className="flex justify-center mb-6 md:mb-10">
             <img 
-              src="/lg logo.png" 
+              src="/images/lg logo.png" 
               alt="LG Logo" 
               className="h-12 sm:h-16 md:h-20 lg:h-24 w-auto object-contain"
             />
@@ -1806,7 +1806,7 @@ const About = () => {
               {/* Floating washing machine container */}
               <div className="lg-washer-float relative">
                 <img
-                  src="/LG 10 kg dryer.png"
+                  src="/images/LG 10 kg dryer.png"
                   alt="LG Commercial Washing Machine - Professional Direct Drive Washer"
                   className="w-[500px] h-auto relative z-10"
                   style={{
@@ -1925,11 +1925,11 @@ const WhySalavai = () => {
                       className="flex items-center gap-6 py-5 border-b border-gray-200 hover:bg-red-50/50 transition-all duration-300 px-4 rounded-lg group"
                     >
                       <div className="w-12 h-12 bg-white flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0 overflow-hidden rounded">
-                        {i === 0 && <img src="/Social welfare-focused initiative.png" alt="Social welfare" className="w-full h-full object-cover" />}
-                        {i === 1 && <img src="/low inveztment.png" alt="Low investment" className="w-full h-full object-cover" />}
-                        {i === 2 && <img src="/complete support.png" alt="Complete support" className="w-full h-full object-cover" />}
-                        {i === 3 && <img src="/modern machinery.png" alt="Modern machinery" className="w-full h-full object-cover" />}
-                        {i === 4 && <img src="/good income opportunity.png" alt="Good income opportunity" className="w-full h-full object-cover" />}
+                        {i === 0 && <img src="/images/Social welfare-focused initiative.png" alt="Social welfare" className="w-full h-full object-cover" />}
+                        {i === 1 && <img src="/images/low inveztment.png" alt="Low investment" className="w-full h-full object-cover" />}
+                        {i === 2 && <img src="/images/complete support.png" alt="Complete support" className="w-full h-full object-cover" />}
+                        {i === 3 && <img src="/images/modern machinery.png" alt="Modern machinery" className="w-full h-full object-cover" />}
+                        {i === 4 && <img src="/images/good income opportunity.png" alt="Good income opportunity" className="w-full h-full object-cover" />}
                       </div>
                       <p className="text-gray-800 font-semibold text-lg flex-1" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                         {item.text}
@@ -1945,7 +1945,7 @@ const WhySalavai = () => {
                   {/* First Image - Top */}
                   <div className="absolute top-0 right-0 group">
                     <img 
-                      src="/tamil peoples.jpeg" 
+                      src="/images/tamil peoples.jpeg" 
                       alt="Tamil Peoples" 
                       className="w-56 h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover rounded-full shadow-2xl border-8 border-white group-hover:scale-105 transition-transform duration-300 relative z-10"
                     />
@@ -1956,7 +1956,7 @@ const WhySalavai = () => {
                   {/* Second Image - Bottom (Overlapping) */}
                   <div className="absolute bottom-0 left-0 group">
                     <img 
-                      src="/kovil page.jpeg" 
+                      src="/images/kovil page.jpeg" 
                       alt="Kovil Page" 
                       className="w-56 h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover rounded-full shadow-2xl border-8 border-white group-hover:scale-105 transition-transform duration-300 relative z-10"
                     />
@@ -2174,35 +2174,35 @@ const WhoCanJoin = () => {
               <div key={i} className="who-card">
                 {i === 0 ? (
                   <img 
-                    src="/dhobi.jpeg" 
+                    src="/images/dhobi.jpeg" 
                     alt="Traditional dhobi families" 
                     className="who-image"
                     style={{ objectFit: 'cover', objectPosition: 'center top' }}
                   />
                 ) : i === 1 ? (
                   <img 
-                    src="/Cooking up some love in my favorite corner of the house!.jpg" 
+                    src="/images/Cooking up some love in my favorite corner of the house!.jpg" 
                     alt="Women / Homemakers" 
                     className="who-image"
                     style={{ objectFit: 'cover', objectPosition: 'center top' }}
                   />
                 ) : i === 2 ? (
                   <img 
-                    src="/Serva Dharma Ashram Trust India help sick, physical challenged people_.jpg" 
+                    src="/images/Serva Dharma Ashram Trust India help sick, physical challenged people_.jpg" 
                     alt="Differently-abled individuals" 
                     className="who-image"
                     style={{ objectFit: 'cover', objectPosition: 'center top' }}
                   />
                 ) : i === 3 ? (
                   <img 
-                    src="/Sahaj ties up with Techno India to skill 1 lakh rural youth.jpg" 
+                    src="/images/Sahaj ties up with Techno India to skill 1 lakh rural youth.jpg" 
                     alt="Unemployed youth" 
                     className="who-image"
                     style={{ objectFit: 'cover', objectPosition: 'center center' }}
                   />
                 ) : i === 4 ? (
                   <img 
-                    src="/A Guide to Starting a Small Business in Mexico as an American Entrepreneur.jpg" 
+                    src="/images/A Guide to Starting a Small Business in Mexico as an American Entrepreneur.jpg" 
                     alt="Aspiring small business owners" 
                     className="who-image"
                     style={{ objectFit: 'cover', objectPosition: 'center center' }}
@@ -2245,7 +2245,7 @@ const Franchise = () => {
   return (
     <section id="franchise" className="py-20 relative overflow-hidden z-10" style={{
       background: '#ffffff',
-      backgroundImage: 'url("/Tamil Nadu state map, administrative division of India_ Vector illustration_.jpg")',
+      backgroundImage: 'url("/images/Tamil Nadu state map, administrative division of India_ Vector illustration_.jpg")',
       backgroundSize: 'contain',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat'
@@ -2350,7 +2350,7 @@ const Contact = () => {
               {/* Background Image Layer */}
               <div className="absolute inset-0 opacity-20">
                 <img
-                  src="/LG 10 kg dryer.png"
+                  src="/images/LG 10 kg dryer.png"
                   alt="Background image showing professional laundry equipment setup"
                   className="w-full h-full object-cover"
                 />
