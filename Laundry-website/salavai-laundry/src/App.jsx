@@ -2340,6 +2340,56 @@ const CSRSupport = () => {
 
 const Contact = () => {
   const { t } = useLanguage();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const sendEmail = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // 1. Gather the data from your form fields
+    const formData = new FormData(e.target);
+
+    try {
+      // 2. Send the data to your Bluehost server (using alternative filename to avoid conflicts)
+      const response = await fetch('./send-message.php', {
+        method: 'POST',
+        body: formData
+      });
+
+      console.log('Response status:', response.status);
+      console.log('Content-Type:', response.headers.get('content-type'));
+      
+      // Get response text first
+      const responseText = await response.text();
+      console.log('Response text:', responseText);
+      
+      // 3. Check if it worked
+      if (response.ok) {
+        try {
+          const result = JSON.parse(responseText);
+          if (result.success) {
+            alert("Email sent to contact@thesalavailaundry.com!");
+            e.target.reset();
+          } else {
+            alert(result.message || "Something went wrong.");
+          }
+        } catch (parseError) {
+          console.error('JSON parse error:', parseError);
+          console.error('Server returned:', responseText.substring(0, 200));
+          alert("Server error: PHP is not executing properly. Please check with your hosting provider.");
+        }
+      } else {
+        console.error('Server error:', response.status, response.statusText);
+        alert("Server error: " + response.status + ". Please try again or contact support.");
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      alert("Network error. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  
   return (
     <section id="contact" className="py-20 relative z-10 overflow-hidden bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -2389,27 +2439,33 @@ const Contact = () => {
             </div>
 
             <div className="lg:col-span-3 p-12 bg-white">
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={sendEmail}>
                 <h3 className="text-2xl font-bold text-slate-900 mb-6 font-heading text-[#003366]">{t.contact.formTitle}</h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-700 ml-1 font-heading">{t.contact.fullName}</label>
-                    <input type="text" className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder={t.contact.fullNamePlaceholder} />
+                    <input type="text" name="name" required className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder={t.contact.fullNamePlaceholder} />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 ml-1 font-heading">{t.contact.phoneNumber}</label>
-                    <input type="tel" className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder={t.contact.phonePlaceholder} />
+                    <label className="text-sm font-bold text-slate-700 ml-1 font-heading">Email Address</label>
+                    <input type="email" name="email" required className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder="your.email@example.com" />
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-700 ml-1 font-heading">{t.contact.locationLabel}</label>
-                  <input type="text" className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder={t.contact.locationPlaceholder} />
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700 ml-1 font-heading">{t.contact.phoneNumber}</label>
+                    <input type="tel" name="phone" required className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder={t.contact.phonePlaceholder} />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700 ml-1 font-heading">{t.contact.locationLabel}</label>
+                    <input type="text" name="location" required className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder={t.contact.locationPlaceholder} />
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-slate-700 ml-1 font-heading">{t.contact.message}</label>
-                  <textarea rows="4" className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder={t.contact.messagePlaceholder}></textarea>
+                  <textarea rows="4" name="message" required className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder={t.contact.messagePlaceholder}></textarea>
                 </div>
-                <button className="water-float-btn w-full py-5 text-white font-bold rounded-xl shadow-xl hover:shadow-[#A50034]/30 transition-all duration-300 font-heading relative overflow-hidden">
+                <button type="submit" disabled={isSubmitting} className="water-float-btn w-full py-5 text-white font-bold rounded-xl shadow-xl hover:shadow-[#A50034]/30 transition-all duration-300 font-heading relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed">
                   <style>{`
                    @keyframes water-wave-flow {
                      0% {
@@ -2453,7 +2509,7 @@ const Contact = () => {
                      color: white;
                    }
                  `}</style>
-                  <span>Send Message</span>
+                  <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
                 </button>
               </form>
             </div>
