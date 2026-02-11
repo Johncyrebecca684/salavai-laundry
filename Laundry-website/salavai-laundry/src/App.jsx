@@ -5,6 +5,7 @@ import {
   Droplets, Monitor, Star, ArrowRight, PlayCircle, Sparkles, Loader,
   Home, Eye, BookOpen, RefreshCw, CircleDot, Zap, DollarSign, MessageCircle
 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 import Card from './components/Card';
 import TrainingCard from './components/TrainingCard';
 
@@ -94,7 +95,8 @@ const translations = {
       cta: 'Start Your Journey',
       cta2: 'Partner With Us',
       brand: 'THE SALAVAI',
-      tagline: 'Premium Laundry'
+      tagline: 'Premium Laundry',
+      programTitle: 'Self-Income Generating Program.'
     },
     // About Section
     about: {
@@ -256,7 +258,8 @@ const translations = {
       cta: 'உங்கள் சலவை தொழிலை தொடங்குங்கள்',
       cta2: 'எங்களுடன் இணைந்து செயல்படுங்கள்',
       brand: 'சலவை லாண்ட்ரி',
-      tagline: ''
+      tagline: '',
+      programTitle: 'சுய வருமானம் உருவாக்கும் திட்டம்.'
     },
     // About Section
     about: {
@@ -1556,21 +1559,21 @@ const Navbar = () => {
 
       {/* Mobile Navbar - Menu Button Left, Logo Right */}
       <nav className="md:hidden fixed top-0 left-0 right-0 bg-white shadow-md z-50">
-        <div className="flex items-center justify-between px-2 py-1">
+        <div className="flex items-center justify-between px-4 py-3">
           {/* Menu Button - Left */}
           <button
             onClick={() => setIsMobileMenuOpen(true)}
             className="primary-button active flex items-center gap-1"
-            style={{ padding: '4px 8px' }}
+            style={{ padding: '6px 12px' }}
           >
-            <Menu size={16} />
+            <Menu size={18} />
           </button>
           
           {/* Logo - Right */}
           <img 
             src="/images/logo.png" 
             alt="The Salavai Laundry" 
-            className="h-10 w-auto object-contain"
+            className="h-16 w-auto object-contain"
           />
         </div>
       </nav>
@@ -1592,7 +1595,7 @@ const Navbar = () => {
                   <img 
                     src="/images/logo.png" 
                     alt="The Salavai Laundry" 
-                    className="h-12 w-auto object-contain"
+                    className="h-16 w-auto object-contain"
                   />
                   <button
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -1642,7 +1645,7 @@ const Navbar = () => {
 };
 
 const Hero = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -1658,7 +1661,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden bg-white">
+    <section id="home" className="relative h-[400px] md:h-screen flex items-center justify-center overflow-hidden bg-white">
       {/* Social Media Icons - Fixed Left Side */}
       <div className="fixed left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-1.5 md:gap-4 pointer-events-auto">
         <a href="https://www.facebook.com/profile.php?id=61587104255575" target="_blank" rel="noopener noreferrer" className="w-8 h-8 md:w-12 md:h-12 rounded bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg">
@@ -1685,7 +1688,15 @@ const Hero = () => {
 
         <RevealOnScroll delay={200}>
           <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 md:mb-10 leading-tight drop-shadow-2xl" style={{ fontFamily: "'Arima Madurai', sans-serif", fontWeight: '900' }}>
-            <span className="text-[#c62222]">Self-Income Generating Program</span>
+            <span className="text-[#c62222]">
+              {language === 'en' ? (
+                <>
+                  Self-Income Generating<br className="md:hidden" /> Program.
+                </>
+              ) : (
+                t.hero.programTitle
+              )}
+            </span>
           </h1>
         </RevealOnScroll>
 
@@ -1800,26 +1811,26 @@ const About = () => {
 
             <div className="relative flex justify-center py-20">
               {/* Animated background gradients */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-gradient-to-br from-cyan-400/20 via-blue-400/10 to-transparent blur-3xl" style={{ animation: 'spin-slow 20s linear infinite' }}></div>
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-gradient-to-tl from-sky-300/20 via-cyan-300/10 to-transparent blur-3xl" style={{ animation: 'spin-slow 15s linear infinite reverse' }}></div>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] md:w-[350px] h-[420px] md:h-[350px] bg-gradient-to-br from-cyan-400/20 via-blue-400/10 to-transparent blur-3xl" style={{ animation: 'spin-slow 20s linear infinite' }}></div>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[360px] md:w-[300px] h-[360px] md:h-[300px] bg-gradient-to-tl from-sky-300/20 via-cyan-300/10 to-transparent blur-3xl" style={{ animation: 'spin-slow 15s linear infinite reverse' }}></div>
 
               {/* Floating washing machine container */}
               <div className="lg-washer-float relative">
                 <img
                   src="/images/LG 10 kg dryer.png"
                   alt="LG Commercial Washing Machine - Professional Direct Drive Washer"
-                  className="w-[500px] h-auto relative z-10"
+                  className="w-[600px] md:w-[500px] h-auto relative z-10"
                   style={{
                     filter: 'drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15)) drop-shadow(0 5px 10px rgba(0, 119, 182, 0.1))'
                   }}
                 />
 
                 {/* Bottom glow - minimized */}
-                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[200px] h-8 bg-cyan-400/8 blur-2xl" style={{ animation: 'glow-pulse 3s ease-in-out infinite' }}></div>
+                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[240px] md:w-[200px] h-8 bg-cyan-400/8 blur-2xl" style={{ animation: 'glow-pulse 3s ease-in-out infinite' }}></div>
               </div>
 
               {/* Ground shadow - more visible */}
-              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[380px] h-16 bg-black/30 rounded-full blur-2xl"></div>
+              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[450px] md:w-[380px] h-16 bg-black/30 rounded-full blur-2xl"></div>
             </div>
           </RevealOnScroll>
 
@@ -2346,45 +2357,21 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // 1. Gather the data from your form fields
-    const formData = new FormData(e.target);
-
     try {
-      // 2. Send the data to your Bluehost server (using alternative filename to avoid conflicts)
-      const response = await fetch('./send-message.php', {
-        method: 'POST',
-        body: formData
-      });
+      // Send email using EmailJS
+      const result = await emailjs.sendForm(
+        'service_bf6pqlj',      // Service ID
+        'template_p1ceoks',     // Template ID
+        e.target,               // Form element
+        'IhHKCGQTyJL_jY-w6'      // Public API Key
+      );
 
-      console.log('Response status:', response.status);
-      console.log('Content-Type:', response.headers.get('content-type'));
-      
-      // Get response text first
-      const responseText = await response.text();
-      console.log('Response text:', responseText);
-      
-      // 3. Check if it worked
-      if (response.ok) {
-        try {
-          const result = JSON.parse(responseText);
-          if (result.success) {
-            alert("Email sent to contact@thesalavailaundry.com!");
-            e.target.reset();
-          } else {
-            alert(result.message || "Something went wrong.");
-          }
-        } catch (parseError) {
-          console.error('JSON parse error:', parseError);
-          console.error('Server returned:', responseText.substring(0, 200));
-          alert("Server error: PHP is not executing properly. Please check with your hosting provider.");
-        }
-      } else {
-        console.error('Server error:', response.status, response.statusText);
-        alert("Server error: " + response.status + ". Please try again or contact support.");
-      }
+      console.log('EmailJS Success:', result.text);
+      alert("Message sent successfully! We'll get back to you soon.");
+      e.target.reset();
     } catch (error) {
-      console.error('Network error:', error);
-      alert("Network error. Please check your connection and try again.");
+      console.error('EmailJS Error:', error);
+      alert("Failed to send message. Please try again or contact us directly.");
     } finally {
       setIsSubmitting(false);
     }
@@ -2416,14 +2403,14 @@ const Contact = () => {
                     <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center border border-slate-200 shadow-sm"><Phone size={20} className="text-[#A50034]" /></div>
                     <div>
                       <p className="text-xs text-slate-500 uppercase font-bold font-heading">{t.contact.phone}</p>
-                      <span className="font-medium">+91 98765 43210</span>
+                      <span className="font-medium">+91 63850 50882</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center border border-slate-200 shadow-sm"><Mail size={20} className="text-[#A50034]" /></div>
                     <div>
                       <p className="text-xs text-slate-500 uppercase font-bold font-heading">{t.contact.email}</p>
-                      <span className="font-medium">contact@salavailaundry.com</span>
+                      <span className="font-medium">contact@thesalavailaundry.com</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -2444,21 +2431,21 @@ const Contact = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-700 ml-1 font-heading">{t.contact.fullName}</label>
-                    <input type="text" name="name" required className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder={t.contact.fullNamePlaceholder} />
+                    <input type="text" name="from_name" required className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder={t.contact.fullNamePlaceholder} />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-700 ml-1 font-heading">Email Address</label>
-                    <input type="email" name="email" required className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder="your.email@example.com" />
+                    <input type="email" name="user_email" required className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder="your.email@example.com" />
                   </div>
                 </div>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-700 ml-1 font-heading">{t.contact.phoneNumber}</label>
-                    <input type="tel" name="phone" required className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder={t.contact.phonePlaceholder} />
+                    <input type="tel" name="user_phone" required className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder={t.contact.phonePlaceholder} />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-700 ml-1 font-heading">{t.contact.locationLabel}</label>
-                    <input type="text" name="location" required className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder={t.contact.locationPlaceholder} />
+                    <input type="text" name="user_location" required className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#A50034] focus:ring-4 focus:ring-[#A50034]/10 outline-none transition-all" placeholder={t.contact.locationPlaceholder} />
                   </div>
                 </div>
                 <div className="space-y-2">
@@ -2526,9 +2513,12 @@ const Footer = () => {
   return (
     <footer className="bg-white text-slate-600 py-12 border-t border-slate-200 z-10 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-        <div className="flex items-center gap-2">
-          <Waves className="text-sky-500" />
-          <span className="font-bold text-slate-900 tracking-wider font-heading">{t.hero.brand}</span>
+        <div className="flex items-center">
+          <img 
+            src="/images/The salavai logo transparent.png" 
+            alt="Salavai Laundry Logo" 
+            className="h-12 w-auto"
+          />
         </div>
         <div className="text-sm">
           © {new Date().getFullYear()} {t.hero.brand}. {t.footer.rights}
