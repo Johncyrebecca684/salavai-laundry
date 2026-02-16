@@ -3,7 +3,7 @@ import {
   Menu, X, Phone, Mail, MapPin, Facebook, Instagram, Twitter, MessageSquare,
   Waves, Shirt, Wrench, GraduationCap, ChevronRight, CheckCircle,
   Droplets, Monitor, Star, ArrowRight, PlayCircle, Sparkles, Loader,
-  Home, Eye, BookOpen, RefreshCw, CircleDot, Zap, DollarSign, MessageCircle
+  Home, Eye, BookOpen, RefreshCw, CircleDot, Zap, DollarSign, MessageCircle, Linkedin
 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import Card from './components/Card';
@@ -1673,6 +1673,9 @@ const Hero = () => {
         <a href="https://www.instagram.com/the_salavai_laundry/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 md:w-12 md:h-12 rounded bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition-colors shadow-lg">
           <Instagram size={14} className="md:w-5 md:h-5" />
         </a>
+        <a href="https://www.linkedin.com/company/the-salavai-laundry" target="_blank" rel="noopener noreferrer" className="w-8 h-8 md:w-12 md:h-12 rounded bg-blue-700 text-white flex items-center justify-center hover:bg-blue-800 transition-colors shadow-lg">
+          <Linkedin size={14} className="md:w-5 md:h-5" />
+        </a>
       </div>
 
       <div className="relative z-20 max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 text-center pointer-events-none" style={{ marginTop: '0rem' }}>
@@ -1712,6 +1715,10 @@ const Hero = () => {
               src="/images/lg logo.png" 
               alt="LG Logo" 
               className="h-12 sm:h-16 md:h-20 lg:h-24 w-auto object-contain"
+              loading="eager"
+              fetchpriority="high"
+              width="500"
+              height="200"
             />
           </div>
         </RevealOnScroll>
@@ -1820,6 +1827,10 @@ const About = () => {
                   src="/images/LG 10 kg dryer.png"
                   alt="LG Commercial Washing Machine - Professional Direct Drive Washer"
                   className="w-[600px] md:w-[500px] h-auto relative z-10"
+                  loading="eager"
+                  fetchpriority="high"
+                  width="600"
+                  height="800"
                   style={{
                     filter: 'drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15)) drop-shadow(0 5px 10px rgba(0, 119, 182, 0.1))'
                   }}
