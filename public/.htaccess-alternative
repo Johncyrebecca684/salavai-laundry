@@ -1,0 +1,37 @@
+# Alternative .htaccess for Bluehost - Try different PHP versions
+
+# INSTRUCTIONS:
+# 1. Check your PHP version in cPanel → MultiPHP Manager
+# 2. Uncomment (remove #) the line that matches your PHP version
+# 3. Make sure all other AddHandler lines stay commented
+
+# For PHP 7.4 (RECOMMENDED):
+AddHandler application/x-httpd-ea-php74 .php
+
+# For PHP 8.0:
+# AddHandler application/x-httpd-ea-php80 .php
+
+# For PHP 8.1:
+# AddHandler application/x-httpd-ea-php81 .php
+
+# For PHP 8.2:
+# AddHandler application/x-httpd-ea-php82 .php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Don't rewrite files or directories that exist
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  
+  # Rewrite everything else to index.html for React Router
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>

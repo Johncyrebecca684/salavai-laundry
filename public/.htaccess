@@ -1,0 +1,18 @@
+# Bluehost-compatible .htaccess for React + PHP
+
+# Enable PHP execution using Bluehost's EA (EasyApache) handler
+# Using PHP 8.2
+AddHandler application/x-httpd-ea-php82 .php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Don't rewrite files or directories that exist (includes PHP files)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  
+  # Rewrite everything else to index.html for React Router
+  RewriteRule ^ index.html [L]
+</IfModule>
