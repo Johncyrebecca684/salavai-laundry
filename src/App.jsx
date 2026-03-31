@@ -1661,7 +1661,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="relative h-[400px] md:h-screen flex items-center justify-center overflow-hidden bg-white">
+    <section id="home" className="relative h-auto min-h-[620px] md:h-screen flex items-center justify-center overflow-hidden bg-white">
       {/* Social Media Icons - Fixed Left Side */}
       <div className="fixed left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-1.5 md:gap-4 pointer-events-auto">
         <a href="https://www.facebook.com/profile.php?id=61587104255575" target="_blank" rel="noopener noreferrer" className="w-8 h-8 md:w-12 md:h-12 rounded bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg">
@@ -2414,7 +2414,7 @@ const Contact = () => {
                     <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center border border-slate-200 shadow-sm"><Phone size={20} className="text-[#A50034]" /></div>
                     <div>
                       <p className="text-xs text-slate-500 uppercase font-bold font-heading">{t.contact.phone}</p>
-                      <span className="font-medium">+91 63850 50882</span>
+                      <span className="font-medium">+91 9944328471</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
