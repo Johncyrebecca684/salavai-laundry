@@ -1711,14 +1711,14 @@ const Hero = () => {
 
         <RevealOnScroll delay={400}>
           <div className="flex justify-center mb-6 md:mb-10">
-            <img 
-              src="/images/lg logo.png" 
-              alt="LG Logo" 
-              className="h-12 sm:h-16 md:h-20 lg:h-24 w-auto object-contain"
+            <img
+              src="/images/lg tr.png"
+              alt="LG Logo"
+              className="h-20 sm:h-24 md:h-32 lg:h-40 w-auto object-contain"
               loading="eager"
               fetchpriority="high"
-              width="500"
-              height="200"
+              width="800"
+              height="320"
             />
           </div>
         </RevealOnScroll>
