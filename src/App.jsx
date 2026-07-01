@@ -80,7 +80,7 @@ const translations = {
       equipment: 'Equipment',
       training: 'Training',
       whoCanJoin: 'Who Can Join',
-      franchise: 'Franchise',
+      franchise: 'Self-Income Generating Program',
       csrSupport: 'CSR & Support',
       contact: 'Contact',
       language: 'ENG',
@@ -88,13 +88,13 @@ const translations = {
     },
     // Hero Section
     hero: {
-      badge: 'Premium Laundromat Franchise',
+      badge: 'Premium Laundromat Self-Income Generating Program',
       title1: 'Transform Your Future.',
       title2: 'Build a Thriving Business.',
       subtitle: 'Empowering traditional dhobis, homemakers, and entrepreneurs with state-of-the-art technology and sustainable business models.',
       cta: 'Start Your Journey',
       cta2: 'Partner With Us',
-      brand: 'THE SALAVAI',
+      brand: 'THE SALAVAI LAUNDRY',
       tagline: 'Premium Laundry',
       programTitle: 'Self-Income Generating Program.'
     },
@@ -123,7 +123,7 @@ const translations = {
     },
     // Why Salavai Section
     whySalavai: {
-      title: 'Why Salavai Laundry?',
+      title: 'Why The Salavai Laundry?',
       reason1: 'Social welfare-focused initiative',
       reason2: 'Low investment',
       reason3: 'Complete support',
@@ -188,7 +188,7 @@ const translations = {
     },
     // Franchise Section
     franchise: {
-      title: 'Franchise',
+      title: 'Self-Income Generating Program',
       subtitle: 'What we provide:',
       item1: 'Complete business setup',
       item2: 'Store design',
@@ -243,7 +243,7 @@ const translations = {
       equipment: 'உபகரணங்கள்',
       training: 'பயிற்சி',
       whoCanJoin: 'யார் சேரலாம்',
-      franchise: 'பிராஞ்சைஸ்',
+      franchise: 'சுய வருமான திட்டம்',
       csrSupport: 'CSR & உதவி',
       contact: 'தொடர்பு',
       language: 'தமிழ்',
@@ -251,7 +251,7 @@ const translations = {
     },
     // Hero Section
     hero: {
-      badge: 'பிரீமியம் சலவை தொழில் உரிமை',
+      badge: 'பிரீமியம் சலவை சுய வருமான திட்டம்',
       title1: 'சலவை லாண்ட்ரி',
       title2: 'ஒரு தொழில் – ஒரு வாழ்க்கை மாற்றம்',
       subtitle: 'தமிழ்நாடு முழுவதும் பாரம்பரிய சலவை வேலையை நவீனமாக மாற்றி நல்ல வருமானம் தரும் தொழிலாக உருவாக்குகிறோம்.',
@@ -994,7 +994,7 @@ const WashingMachineIntro = ({ show, onComplete }) => {
             textShadow: '0 4px 20px rgba(0,0,0,0.4)',
             letterSpacing: '2px'
           }}>
-            THE SALAVAI
+            THE SALAVAI LAUNDRY
           </h1>
           <p className="text-2xl text-cyan-200 mb-6" style={{ fontFamily: "'Quicksand', sans-serif" }}>
             Premium Laundry Experience
@@ -2545,7 +2545,7 @@ const Footer = () => {
             <ul className="space-y-4 text-sm text-slate-600">
               <li><a href="#home" className="hover:text-[#A50034] transition-colors">Home</a></li>
               <li><a href="#about" className="hover:text-[#A50034] transition-colors">About</a></li>
-              <li><a href="#franchise" className="hover:text-[#A50034] transition-colors">Franchise</a></li>
+              <li><a href="#franchise" className="hover:text-[#A50034] transition-colors">Self-Income Generating Program</a></li>
               <li><a href="#equipment" className="hover:text-[#A50034] transition-colors">Equipment</a></li>
               <li><a href="#training" className="hover:text-[#A50034] transition-colors">Training</a></li>
               <li><a href="#who-can-join" className="hover:text-[#A50034] transition-colors">Who Can Join</a></li>
