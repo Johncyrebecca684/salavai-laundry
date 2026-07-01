@@ -216,12 +216,12 @@ const translations = {
       phone: 'Phone',
       email: 'Email',
       location: 'Location',
-      locationValue: 'Chennai, Tamil Nadu',
+      locationValue: ' 2/658, East Coast Rd, Ranga Reddy Gardens, Neelankarai, Chennai, Tamil Nadu 600115, India',
       formTitle: 'Send Message',
       fullName: 'Full Name',
       fullNamePlaceholder: 'John Doe',
       phoneNumber: 'Phone Number',
-      phonePlaceholder: '+91...',
+      phonePlaceholder: '+91.....',
       locationLabel: 'Location',
       locationPlaceholder: 'City, Area',
       message: 'Message',
@@ -383,7 +383,7 @@ const translations = {
       fullName: 'முழு பெயர்',
       fullNamePlaceholder: 'உங்கள் பெயர்',
       phoneNumber: 'தொலைபேசி எண்',
-      phonePlaceholder: '+91...',
+      phonePlaceholder: '',
       locationLabel: 'இடம்',
       locationPlaceholder: 'நகரம், பகுதி',
       message: 'செய்தி',
@@ -1667,7 +1667,7 @@ const Hero = () => {
         <a href="https://www.facebook.com/profile.php?id=61587104255575" target="_blank" rel="noopener noreferrer" className="w-8 h-8 md:w-12 md:h-12 rounded bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg">
           <Facebook size={14} className="md:w-5 md:h-5" />
         </a>
-        <a href="https://wa.me/916385050882?text=Hi" target="_blank" rel="noopener noreferrer" className="w-8 h-8 md:w-12 md:h-12 rounded bg-green-500 text-white flex items-center justify-center hover:bg-green-600 transition-colors shadow-lg">
+        <a href="https://wa.me/918148814525?text=Hi" target="_blank" rel="noopener noreferrer" className="w-8 h-8 md:w-12 md:h-12 rounded bg-green-500 text-white flex items-center justify-center hover:bg-green-600 transition-colors shadow-lg">
           <MessageCircle size={14} className="md:w-5 md:h-5" />
         </a>
         <a href="https://www.instagram.com/the_salavai_laundry/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 md:w-12 md:h-12 rounded bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition-colors shadow-lg">
@@ -2414,7 +2414,7 @@ const Contact = () => {
                     <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center border border-slate-200 shadow-sm"><Phone size={20} className="text-[#A50034]" /></div>
                     <div>
                       <p className="text-xs text-slate-500 uppercase font-bold font-heading">{t.contact.phone}</p>
-                      <span className="font-medium">+91 9944328471</span>
+                      <span className="font-medium">+91 81488 14525</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -2522,17 +2522,71 @@ const Contact = () => {
 const Footer = () => {
   const { t } = useLanguage();
   return (
-    <footer className="bg-white text-slate-600 py-12 border-t border-slate-200 z-10 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-        <div className="flex items-center">
-          <img 
-            src="/images/The salavai logo transparent.png" 
-            alt="Salavai Laundry Logo" 
-            className="h-12 w-auto"
-          />
+    <footer className="bg-white text-slate-600 pt-16 pb-8 border-t border-slate-200 z-10 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+          {/* Column 1: Logo and About */}
+          <div className="flex flex-col gap-6">
+            <img 
+              src="/images/The salavai logo transparent.png" 
+              alt="Salavai Laundry Logo" 
+              className="h-12 w-auto object-contain self-start"
+            />
+            <p className="text-sm text-slate-600 leading-relaxed" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+              Empowering communities through professional<br/>
+              laundry entrepreneurship. A Self-Income Generating<br/>
+              Program (SIGP) for Tamil Nadu.
+            </p>
+          </div>
+
+          {/* Column 2: Quick Links */}
+          <div>
+            <h4 className="text-sm font-bold text-[#003366] uppercase tracking-wider mb-6 font-heading">QUICK LINKS</h4>
+            <ul className="space-y-4 text-sm text-slate-600">
+              <li><a href="#home" className="hover:text-[#A50034] transition-colors">Home</a></li>
+              <li><a href="#about" className="hover:text-[#A50034] transition-colors">About</a></li>
+              <li><a href="#franchise" className="hover:text-[#A50034] transition-colors">Franchise</a></li>
+              <li><a href="#equipment" className="hover:text-[#A50034] transition-colors">Equipment</a></li>
+              <li><a href="#training" className="hover:text-[#A50034] transition-colors">Training</a></li>
+              <li><a href="#who-can-join" className="hover:text-[#A50034] transition-colors">Who Can Join</a></li>
+              <li><a href="#contact" className="hover:text-[#A50034] transition-colors">Contact</a></li>
+            </ul>
+          </div>
+
+          {/* Column 3: Contact Info */}
+          <div>
+            <h4 className="text-sm font-bold text-[#003366] uppercase tracking-wider mb-6 font-heading">CONTACT</h4>
+            <div className="space-y-4 text-sm text-slate-600">
+              <div>
+                <strong className="text-slate-800 block mb-1">Location:</strong>
+                 2/658, East Coast Rd, Ranga Reddy Gardens, Neelankarai, Chennai, Tamil Nadu 600115, India
+              </div>
+              <div>
+                <strong className="text-slate-800 block mb-1">Phone:</strong>
+                +91 81488 14525
+              </div>
+              <div>
+                <strong className="text-slate-800 block mb-1">WhatsApp:</strong>
+                +91 81488 14525
+              </div>
+              <div>
+                <strong className="text-slate-800 block mb-1">Email:</strong>
+                contact@thesalavailaundry.com
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="text-sm">
-          © {new Date().getFullYear()} {t.hero.brand}. {t.footer.rights}
+
+        {/* Bottom Section */}
+        <div className="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
+          <div>
+            © 2026 The Salavai Laundry. All rights reserved.
+          </div>
+          <div className="flex gap-6">
+            <a href="https://www.facebook.com/profile.php?id=61587104255575" target="_blank" rel="noopener noreferrer" className="hover:text-[#003366] transition-colors">Facebook</a>
+            <a href="https://www.instagram.com/the_salavai_laundry/" target="_blank" rel="noopener noreferrer" className="hover:text-[#A50034] transition-colors">Instagram</a>
+            <a href="https://www.linkedin.com/company/the-salavai-laundry" target="_blank" rel="noopener noreferrer" className="hover:text-[#003366] transition-colors">LinkedIn</a>
+          </div>
         </div>
       </div>
     </footer>
